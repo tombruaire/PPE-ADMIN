@@ -74,7 +74,7 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<div class="card animate__animated animate__backInUp">
+				<div class="card animate__animated animate__bounceIn">
 					<div class="card-header">
 						<h1 class="text-dark h2 text-center">
 							Bienvenue dans la partie administratrive de la Mairie de Villiers !
