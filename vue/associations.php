@@ -26,15 +26,16 @@
 											<th>Nom</th>
 											<th>Siège</th>
 											<th>Date de création</th>
+											<th>Inscrits</th>
 											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM associations ORDER BY idassoc DESC');
+										$view = $bdd->query("SELECT * FROM associations ORDER BY idassoc DESC");
 										if ($view->rowCount() == 0) { ?>
 											<tr>
-												<td colspan="5">Aucune association trouvée dans la basse de données</td>
+												<td colspan="6">Aucune association trouvée dans la basse de données</td>
 											</tr>
 										<?php } elseif (isset($_GET['edit'])) { 
 										while ($donnees = $view->fetch()) { ?>
@@ -49,6 +50,9 @@
 												</td>
 												<td>
 													<input type="text" name="datecreationassoc" autocomplete="off" value="<?= $donnees['datecreationassoc'] ?>" class="form-control">
+												</td>
+												<td>
+													<input type="number" name="inscrits" autocomplete="off" value="<?= $donnees['inscrits'] ?>" class="form-control">
 												</td>
 												<td>
 													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
@@ -66,10 +70,12 @@
 												$nomassoc = $_POST['nomassoc'];
 												$siegeassoc = $_POST['siegeassoc'];
 												$datecreationassoc = $_POST['datecreationassoc'];
-												$update = $bdd->prepare("UPDATE associations SET nomassoc = :nomassoc, siegeassoc = :siegeassoc, datecreationassoc = :datecreationassoc WHERE idassoc = '".$idassoc."' ");
+												$inscrits = $_POST['inscrits'];
+												$update = $bdd->prepare("UPDATE associations SET nomassoc = :nomassoc, siegeassoc = :siegeassoc, datecreationassoc = :datecreationassoc, inscrits = :inscrits WHERE idassoc = '".$idassoc."' ");
 												$update->bindValue(':nomassoc', $nomassoc, PDO::PARAM_STR);
 												$update->bindValue(':siegeassoc', $siegeassoc, PDO::PARAM_STR);
 												$update->bindValue(':datecreationassoc', $datecreationassoc, PDO::PARAM_STR);
+												$update->bindValue(':inscrits', $inscrits, PDO::PARAM_INT);
 												$update->execute();
 												header('Location: associations');
 											}
@@ -83,6 +89,7 @@
 											<td><?= $donnees['nomassoc'] ?></td>
 											<td><?= $donnees['siegeassoc'] ?></td>
 											<td><?= $donnees['datecreationassoc'] ?></td>
+											<td><?= $donnees['inscrits'] ?></td>
 											<td class="table-action">
 												<a class="btn btn-primary active fw-bold me-3" href="associations&edit=<?= $donnees['idassoc'] ?>">
 													Modifier
@@ -119,6 +126,7 @@
 	        		<?= $forms->input('nomassoc', 'pen', 'Nom de l\'association', 'text', 'nomassoc') ?>
 	        		<?= $forms->input('siegeassoc', 'map-marker-alt', 'Siège de l\'association', 'text', 'siegeassoc') ?>
 					<?= $forms->input('datepicker', 'clock', 'Date de création de l\'association', 'text', 'datecreationassoc') ?>
+					<?= $forms->input('inscrits', 'users', 'Nombre d\'inscrits', 'number', 'inscrits') ?>
 					<?= $helpers->submit('submit', 'submit', 'Ajouter') ?>
 				</form>
 	      	</div>

@@ -38,7 +38,7 @@
 										$view = $bdd->query('SELECT * FROM evenements ORDER BY idevent DESC');
 										if ($view->rowCount() == 0) { ?>
 											<tr>
-												<td colspan="8">Aucun évènement trouvé dans la basse de données</td>
+												<td colspan="9">Aucun évènement trouvé dans la basse de données</td>
 											</tr>
 										<?php } elseif (isset($_GET['edit'])) { 
 										while ($donnees = $view->fetch()) { ?>

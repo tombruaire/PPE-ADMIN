@@ -4,7 +4,8 @@
 if (isset($_POST['submit'])) {
 	$nomec = $_POST['nomec'];
 	$adresseec = $_POST['adresseec'];
-	$requete = insertEcole($nomec, $adresseec);
+	$eleves = $_POST['eleves'];
+	$requete = insertEcole($nomec, $adresseec, $eleves);
 	Alerts::setFlash("École ajoutée avec succès !");
 }
 

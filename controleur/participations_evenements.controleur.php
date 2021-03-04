@@ -1,4 +1,4 @@
-<?php require "modele/participations.modele.php";
+<?php require "modele/participations_evenements.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
 
 // RETOUR
 if (isset($_POST['retour'])) {
-	header('Location: participations');
+	header('Location: participations_evenements');
 }
 
 // SUPPRESSION
@@ -31,9 +31,15 @@ if (isset($_GET['idpart'])) {
 	$idpart  = $_GET['idpart'];
 	$delete = $bdd->prepare("DELETE FROM participations WHERE idpart = '$idpart'");
 	$delete->execute(array($idpart));
-	header('Location: participations');
+	header('Location: participations_evenements');
 }
 
-require "vue/participations.php";
+if (isset($_GET['idpart'])) {
+	$idpart  = $_GET['idpart'];
+	$delete = deleteInscription($idpart);
+	header('Location: participations_evenements');
+}
+
+require "vue/participations_evenements.php";
 
 ?>

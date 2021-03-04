@@ -28,15 +28,16 @@
                     <?= $helpers->lien('general', 'Compteurs') ?>
                     <?= $helpers->lien('utilisateurs', 'Utilisateurs') ?>
                     <?= $helpers->lien('evenements', 'Évènements') ?>
-                    <?= $helpers->lien('participations', 'Participations') ?>
+                    <?= $helpers->lien('participations_evenements', 'Participations évènements') ?>
                     <?= $helpers->lien('habitants', 'Habitants') ?>
                     <?= $helpers->lien('conservatoires', 'Conservatoires') ?>
+                    <?= $helpers->lien('inscriptions_conservatoires', 'Inscriptions conservatoires') ?>
                     <?= $helpers->lien('associations', 'Associations') ?>
+                    <?= $helpers->lien('inscriptions_associations', 'Inscriptions associations') ?>
                     <?= $helpers->lien('ecoles', 'Écoles') ?>
+                    <?= $helpers->lien('inscriptions_ecoles', 'Inscriptions écoles') ?>
                     <?= $helpers->lien('enfants', 'Enfants') ?>
                     <?= $helpers->lien('deces', 'Décès') ?>
-                    <?= $helpers->lien('membres', 'Membres <i>(Associations)</i>') ?>
-                    <?= $helpers->lien('inscrits', 'Inscriptions') ?>
                     <?= $helpers->lien('mariages', 'Mariages') ?>
                     <?= $helpers->lien('sources', 'Sources') ?>
                 </ul>

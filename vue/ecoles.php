@@ -25,6 +25,7 @@
 											<th>#</th>
 											<th>Nom</th>
 											<th>Adresse</th>
+											<td>Élèves</td>
 											<th>Actions</th>
 										</tr>
 									</thead>
@@ -33,7 +34,7 @@
 										$view = $bdd->query("SELECT * FROM ecoles ORDER BY idec DESC");
 										if ($view->rowCount() == 0) { ?>
 											<tr>
-												<td colspan="4">Aucune école trouvée dans la basse de données</td>
+												<td colspan="5">Aucune école trouvée dans la basse de données</td>
 											</tr>
 										<?php } elseif (isset($_GET['edit'])) { 
 										while ($donnees = $view->fetch()) { ?>
@@ -45,6 +46,9 @@
 												</td>
 												<td>
 													<input type="text" name="adresseec" autocomplete="off" value="<?= $donnees['adresseec'] ?>"  class="form-control">
+												</td>
+												<td>
+													<input type="number" name="eleves" autocomplete="off" value="<?= $donnees['eleves'] ?>" class="form-control">
 												</td>
 												<td>
 													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
@@ -61,9 +65,11 @@
 												$idec = $_GET['edit'];
 												$nomec = $_POST['nomec'];
 												$adresseec = $_POST['adresseec'];
-												$update = $bdd->prepare("UPDATE ecoles SET nomec = :nomec, adresseec = :adresseec WHERE idec = '".$idec."'");
+												$eleves = $_POST['eleves'];
+												$update = $bdd->prepare("UPDATE ecoles SET nomec = :nomec, adresseec = :adresseec, eleves = :eleves WHERE idec = '".$idec."'");
 												$update->bindValue(':nomec', $nomec, PDO::PARAM_STR);
 												$update->bindValue(':adresseec', $adresseec, PDO::PARAM_STR);
+												$update->bindValue(':eleves', $eleves, PDO::PARAM_INT);
 												$update->execute();
 												header('Location: ecoles');
 											}
@@ -76,6 +82,7 @@
 											<td><?= $donnees['idec'] ?></td>
 											<td><?= $donnees['nomec'] ?></td>
 											<td><?= $donnees['adresseec'] ?></td>
+											<td><?= $donnees['eleves'] ?></td>
 											<td class="table-action">
 												<a class="btn btn-primary active fw-bold me-3" href="ecoles&edit=<?= $donnees['idec'] ?>">
 													Modifier
@@ -111,6 +118,7 @@
 	        	<form method="post" action="">
 	        		<?= $forms->input('nomec', 'pen', 'Nom de l\'école', 'text', 'nomec') ?>
 					<?= $forms->input('adresseec', 'map-marker-alt', 'Adresse de l\'école', 'text', 'adresseec') ?>
+					<?= $forms->input('eleves', 'users', 'Nombre d\'élèves', 'number', 'eleves') ?>
 					<?= $helpers->submit('submit', 'submit', 'Ajouter') ?>
 				</form>
 	      	</div>
