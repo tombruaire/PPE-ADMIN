@@ -34,7 +34,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM enfants ORDER BY idenf DESC');
+										$view = $bdd->query("SELECT * FROM enfants ORDER BY idenf DESC");
 										while ($donnees = $view->fetch()) {
 										?>
 										<tr>

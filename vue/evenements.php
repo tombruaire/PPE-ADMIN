@@ -35,7 +35,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM evenements ORDER BY idevent DESC');
+										$view = $bdd->query("SELECT * FROM evenements ORDER BY idevent DESC");
 										if ($view->rowCount() == 0) { ?>
 											<tr>
 												<td colspan="9">Aucun évènement trouvé dans la basse de données</td>

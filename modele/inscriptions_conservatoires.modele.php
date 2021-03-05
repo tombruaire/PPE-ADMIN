@@ -10,9 +10,7 @@ function insertInscription($nom, $prenom, $email, $tel, $adresse, $conservatoire
 	$insertion->bindValue(':adresse', $adresse, PDO::PARAM_STR);
 	$insertion->bindValue(':conservatoire', $conservatoire, PDO::PARAM_STR);
 	$insertion->execute();
-	$update = $bdd->prepare("UPDATE conservatoires SET effectifs = effectifs + 1 WHERE nomconserv = :nomconserv");
-	$update->bindValue(':nomconserv', $conservatoire, PDO::PARAM_STR);
-	return $update->execute();
+	return $insertion->execute();
 }
 
 function checkEmail($email) {
@@ -46,9 +44,7 @@ function deleteInscription($id_ins) {
 	global $bdd;
 	$delete = $bdd->prepare("DELETE FROM inscrits_conservatoires WHERE id_ins = '$id_ins'");
 	$delete->execute(array($id_ins));
-	$update = $bdd->prepare("UPDATE conservatoires SET effectifs = effectifs - 1 WHERE idconserv = '$id_ins'");
-	$update->bindValue(':idconserv', $id_ins, PDO::PARAM_INT);
-	return $update->execute();
+	return $delete->execute();
 }
 
 ?>

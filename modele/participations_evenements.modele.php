@@ -6,9 +6,7 @@ function insertParticipation($emailuser, $evenement) {
 	$insertion->bindValue(':emailuser', $emailuser, PDO::PARAM_STR);
 	$insertion->bindValue(':evenement', $evenement, PDO::PARAM_STR);
 	$insertion->execute();
-	$update = $bdd->prepare("UPDATE evenements SET nbievent = nbievent + 1 WHERE nomevent = :nomevent");
-	$update->bindValue(':nomevent', $evenement, PDO::PARAM_STR);
-	return $update->execute();
+	return $insertion->execute();
 }
 
 function checkEmail($emailuser) {
@@ -24,9 +22,7 @@ function deleteInscription($idpart) {
 	global $bdd;
 	$delete = $bdd->prepare("DELETE FROM participations WHERE idpart = '$idpart'");
 	$delete->execute(array($idpart));
-	$update = $bdd->prepare("UPDATE evenements SET nbievent = nbievent - 1 WHERE idevent = '$idpart'");
-	$update->bindValue(':idevent', $idpart, PDO::PARAM_INT);
-	return $update->execute();
+	return $delete->execute();
 }
 
 ?>

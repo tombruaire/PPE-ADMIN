@@ -8,9 +8,7 @@ function insertInscription($nom, $prenom, $email, $association) {
 	$insertion->bindValue(':email', $email, PDO::PARAM_STR);
 	$insertion->bindValue(':association', $association, PDO::PARAM_STR);
 	$insertion->execute();
-	$update = $bdd->prepare("UPDATE associations SET inscrits = inscrits + 1 WHERE nomassoc = :nomassoc");
-	$update->bindValue(':nomassoc', $association, PDO::PARAM_STR);
-	return $update->execute();
+	return $insertion->execute();
 }
 
 function checkEmail($email) {
@@ -26,9 +24,7 @@ function deleteInscription($id_ins) {
 	global $bdd;
 	$delete = $bdd->prepare("DELETE FROM inscrits_associations WHERE id_ins = '$id_ins'");
 	$delete->execute(array($id_ins));
-	$update = $bdd->prepare("UPDATE associations SET inscrits = inscrits - 1 WHERE idassoc = '$id_ins'");
-	$update->bindValue(':idassoc', $id_ins, PDO::PARAM_INT);
-	return $update->execute();
+	return $delete->execute();
 }
 
 ?>

@@ -33,7 +33,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM conservatoires ORDER BY idconserv DESC');
+										$view = $bdd->query("SELECT * FROM conservatoires ORDER BY idconserv DESC");
 										if ($view->rowCount() == 0) { ?>
 											<tr>
 												<td colspan="8">Aucun évènement trouvé dans la basse de données</td>

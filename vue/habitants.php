@@ -34,7 +34,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM habitants ORDER BY idhab DESC');
+										$view = $bdd->query("SELECT * FROM habitants ORDER BY idhab DESC");
 										if ($view->rowCount() == 0) { ?>
 											<tr>
 												<td colspan="9">Aucun habitants trouvé dans la basse de données</td>

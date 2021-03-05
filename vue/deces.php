@@ -31,7 +31,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM viewDeces ORDER BY idd DESC');
+										$view = $bdd->query("SELECT * FROM viewDeces ORDER BY idd DESC");
 										while ($donnees = $view->fetch()) {
 										?>
 										<tr>

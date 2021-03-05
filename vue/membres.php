@@ -29,7 +29,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM viewMembres');
+										$view = $bdd->query("SELECT * FROM viewMembres");
 										while ($donnees = $view->fetch()) {
 										?>
 										<tr>

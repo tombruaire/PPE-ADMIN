@@ -30,7 +30,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query('SELECT * FROM participations ORDER BY idpart DESC');
+										$view = $bdd->query("SELECT * FROM participations ORDER BY idpart DESC");
 										if ($view->rowCount() == 0) { ?>
 											<tr>
 												<td colspan="4">Aucune participation trouvée dans la basse de données</td>
