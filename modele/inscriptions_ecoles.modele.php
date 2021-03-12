@@ -7,7 +7,6 @@ function insertEcole($nom, $prenom, $email, $ecole) {
 	$insertion->bindValue(':prenom', $prenom, PDO::PARAM_STR);
 	$insertion->bindValue(':email', $email, PDO::PARAM_STR);
 	$insertion->bindValue(':ecole', $ecole, PDO::PARAM_STR);
-	$insertion->execute();
 	return $insertion->execute();
 }
 

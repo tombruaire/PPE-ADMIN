@@ -41,27 +41,12 @@
 										while ($donnees = $view->fetch()) { ?>
 											<tr>
 												<form method="post" action="">
-												<td><?= $donnees['idassoc'] ?></td>
-												<td>
-													<input type="text" name="nomassoc" autocomplete="off" value="<?= $donnees['nomassoc'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="siegeassoc" autocomplete="off" value="<?= $donnees['siegeassoc'] ?>"  class="form-control">
-												</td>
-												<td>
-													<input type="text" name="datecreationassoc" autocomplete="off" value="<?= $donnees['datecreationassoc'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="number" name="inscrits" autocomplete="off" value="<?= $donnees['inscrits'] ?>" class="form-control">
-												</td>
-												<td>
-													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
-														<i class="align-middle" data-feather="check"></i>
-													</button>
-													<button type="submit" name="retour" class="btn btn-primary" style="background-color: red; border-color: red;">
-														<i class="align-middle" data-feather="x"></i>
-													</button>
-												</td>
+													<td><?= $donnees['idassoc'] ?></td>
+													<?= $forms->edit('text', 'nomassoc', $donnees['nomassoc']) ?>
+													<?= $forms->edit('text', 'siegeassoc', $donnees['siegeassoc']) ?>
+													<?= $forms->edit('date', 'datecreationassoc', $donnees['datecreationassoc']) ?>
+													<?= $forms->edit('number', 'inscrits', $donnees['inscrits']) ?>
+													<?= $forms->buttons() ?>
 												</form>
 											</tr>
 											<?php

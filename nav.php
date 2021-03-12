@@ -29,6 +29,7 @@
                     <?= $helpers->lien('utilisateurs', 'Utilisateurs') ?>
                     <?= $helpers->lien('evenements', 'Évènements') ?>
                     <?= $helpers->lien('participations_evenements', 'Participations évènements') ?>
+                    <?= $helpers->lien('old_evenements', 'Historique évènements') ?>
                     <?= $helpers->lien('habitants', 'Habitants') ?>
                     <?= $helpers->lien('conservatoires', 'Conservatoires') ?>
                     <?= $helpers->lien('inscriptions_conservatoires', 'Inscriptions conservatoires') ?>

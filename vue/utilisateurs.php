@@ -116,47 +116,32 @@
 										while ($donnees = $view->fetch()) { ?>
 											<tr>
 												<form method="post" action="">
-												<td><?= $donnees['id'] ?></td>
-												<td>
-													<input type="text" name="nom" autocomplete="off" value="<?= $donnees['nom'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="prenom" autocomplete="off" value="<?= $donnees['prenom'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="pseudo" autocomplete="off" value="<?= $donnees['pseudo'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="email" name="email" autocomplete="off" value="<?= $donnees['email'] ?>" class="form-control">
-												</td>
-												<td><?= $donnees['date_format(date_inscription, "%d/%m/%Y")'] ?></td>
-												<td><?= $donnees['heure_inscription'] ?></td>
-												<td>
-													<?php if ($donnees['confirme'] == 0) { ?>
-													<span class="badge bg-warning text-light fw-bold fs-5">En attente...</span>
-													<?php } else { ?>
-													<span class="badge fs-5" style="background-color: #008000;">Confirmé</span>
-													<?php } ?>
-												</td>
-												<td class="table-action">
-													<?php if ($donnees['lvl'] == 0) { ?>
-													<a class="btn btn-primary active fw-bold disabled">
-														Débannir
-													</a>
-													<?php } else { ?>
-													<a class="btn btn-warning text-dark active fw-bold disabled">
-														Bannir
-													</a>
-													<?php } ?>
-												</td>
-												<td>
-													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
-														<i class="align-middle" data-feather="check"></i>
-													</button>
-													<button type="submit" name="retour" class="btn btn-primary" style="background-color: red; border-color: red;">
-														<i class="align-middle" data-feather="x"></i>
-													</button>
-												</td>
+													<td><?= $donnees['id'] ?></td>
+													<?= $forms->edit('text', 'nom', $donnees['nom']) ?>
+													<?= $forms->edit('text', 'prenom', $donnees['prenom']) ?>
+													<?= $forms->edit('text', 'pseudo', $donnees['pseudo']) ?>
+													<?= $forms->edit('email', 'email', $donnees['email']) ?>
+													<td><?= $donnees['date_format(date_inscription, "%d/%m/%Y")'] ?></td>
+													<td><?= $donnees['heure_inscription'] ?></td>
+													<td>
+														<?php if ($donnees['confirme'] == 0) { ?>
+														<span class="badge bg-warning text-light fw-bold fs-5">En attente...</span>
+														<?php } else { ?>
+														<span class="badge fs-5" style="background-color: #008000;">Confirmé</span>
+														<?php } ?>
+													</td>
+													<td class="table-action">
+														<?php if ($donnees['lvl'] == 0) { ?>
+														<a class="btn btn-primary active fw-bold disabled">
+															Débannir
+														</a>
+														<?php } else { ?>
+														<a class="btn btn-warning text-dark active fw-bold disabled">
+															Bannir
+														</a>
+														<?php } ?>
+													</td>
+													<?= $forms->buttons() ?>
 												</form>
 											</tr>
 											<?php

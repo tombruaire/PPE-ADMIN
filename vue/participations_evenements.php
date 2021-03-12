@@ -39,21 +39,10 @@
 										while ($donnees = $view->fetch()) { ?>
 											<tr>
 												<form method="post" action="">
-												<td><?= $donnees['idpart'] ?></td>
-												<td>
-													<input type="email" name="emailuser" autocomplete="off" value="<?= $donnees['emailuser'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="evenement" autocomplete="off" value="<?= $donnees['evenement'] ?>"  class="form-control">
-												</td>
-												<td>
-													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
-														<i class="align-middle" data-feather="check"></i>
-													</button>
-													<button type="submit" name="retour" class="btn btn-primary" style="background-color: red; border-color: red;">
-														<i class="align-middle" data-feather="x"></i>
-													</button>
-												</td>
+													<td><?= $donnees['idpart'] ?></td>
+													<?= $forms->edit('email', 'emailuser', $donnees['emailuser']) ?>
+													<?= $forms->edit('text', 'evenement', $donnees['evenement']) ?>
+													<?= $forms->buttons() ?>
 												</form>
 											</tr>
 											<?php

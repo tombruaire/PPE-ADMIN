@@ -44,36 +44,15 @@
 										while ($donnees = $view->fetch()) { ?>
 											<tr>
 												<form method="post" action="">
-												<td><?= $donnees['idevent'] ?></td>
-												<td>
-													<input type="text" name="nomevent" autocomplete="off" value="<?= $donnees['nomevent'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="dateevent" autocomplete="off" value="<?= $donnees['dateevent'] ?>"  class="form-control">
-												</td>
-												<td>
-													<input type="text" name="heureevent" autocomplete="off" value="<?= $donnees['heureevent'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="lieuevent" autocomplete="off" value="<?= $donnees['lieuevent'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="number" name="nbievent" value="<?= $donnees['nbievent'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="number" name="prixplaceevent" value="<?= $donnees['prixplaceevent'] ?>" class="form-control">
-												</td>
-												<td>
-												    <input type="number" name="placestotal" value="<?= $donnees['placestotal'] ?>" class="form-control">
-												</td>
-												<td>
-													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
-														<i class="align-middle" data-feather="check"></i>
-													</button>
-													<button type="submit" name="retour" class="btn btn-primary" style="background-color: red; border-color: red;">
-														<i class="align-middle" data-feather="x"></i>
-													</button>
-												</td>
+													<td><?= $donnees['idevent'] ?></td>
+													<?= $forms->edit('text', 'nomevent', $donnees['nomevent']) ?>
+													<?= $forms->edit('date', 'dateevent', $donnees['dateevent']) ?>
+													<?= $forms->edit('text', 'heureevent', $donnees['heureevent']) ?>
+													<?= $forms->edit('text', 'lieuevent', $donnees['lieuevent']) ?>
+													<?= $forms->edit('number', 'nbievent', $donnees['nbievent']) ?>
+													<?= $forms->edit('number', 'prixplaceevent', $donnees['prixplaceevent']) ?>
+													<?= $forms->edit('number', 'placestotal', $donnees['placestotal']) ?>
+													<?= $forms->buttons() ?>
 												</form>
 											</tr>
 											<?php
@@ -145,7 +124,7 @@
 	      	<div class="modal-body">
 	        	<form method="post" action="">
 	        		<?= $forms->input('nomevent', 'pen', 'Nom de l\'évènement', 'text', 'nomevent') ?>
-					<?= $forms->input('datepicker', 'calendar-alt', 'Date de l\'évènement', 'text', 'dateevent') ?>
+					<?= $forms->input('dateevent', 'calendar-alt', 'Date de l\'évènement', 'date', 'dateevent') ?>
 					<?= $forms->input('heureevent', 'clock', 'Heure de l\'évènement', 'time', 'heureevent') ?>
 					<?= $forms->input('lieuevent', 'map-marker-alt', 'Lieu de l\'évènement', 'text', 'lieuevent') ?>
 					<?= $forms->input('prixplaceevent', 'euro-sign', 'Prix de la place', 'number', 'prixplaceevent') ?>

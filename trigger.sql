@@ -194,7 +194,7 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS insert_inscrit_evenements;
 DELIMITER //
 CREATE TRIGGER insert_inscrit_evenements
-AFTER DELETE ON participations
+AFTER INSERT ON participations
 FOR EACH ROW 
 BEGIN
 UPDATE evenements SET nbievent = nbievent + 1;
@@ -216,7 +216,7 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS insert_eleve_conservatoires;
 DELIMITER //
 CREATE TRIGGER insert_eleve_conservatoires
-AFTER DELETE ON inscrits_conservatoires
+AFTER INSERT ON inscrits_conservatoires
 FOR EACH ROW 
 BEGIN
 UPDATE conservatoires SET effectifs = effectifs + 1;
@@ -263,7 +263,8 @@ CREATE TRIGGER insert_eleve_ecole
 AFTER INSERT ON inscrits_ecoles
 FOR EACH ROW
 BEGIN
-UPDATE ecoles SET eleves = eleves + 1;
+UPDATE ecoles SET eleves = eleves + 1
+WHERE nomec = nomec;
 End //
 DELIMITER ;
 
@@ -274,6 +275,73 @@ CREATE TRIGGER delete_eleve_ecole
 AFTER DELETE ON inscrits_ecoles
 FOR EACH ROW 
 BEGIN
-UPDATE ecoles SET eleves = eleves - 1;
+UPDATE ecoles SET eleves = eleves - 1
+WHERE nomec = nomec;
 End //
 DELIMITER ;
+
+DROP TRIGGER IF EXISTS after_update_event;
+DELIMITER //
+CREATE TRIGGER after_update_event
+AFTER UPDATE ON evenements
+FOR EACH ROW 
+BEGIN
+	INSERT INTO old_events (
+		idevent,
+		nomevent,
+		dateevent,
+		lieuevent,
+		nbievent,
+		prixplaceevent,
+		placestotal,
+		date_histo,
+		event_histo
+	) VALUES (
+		OLD.idevent,
+		OLD.nomevent,
+		OLD.dateevent,
+		OLD.lieuevent,
+		OLD.nbievent,
+		OLD.prixplaceevent,
+		OLD.placestotal,
+		NOW(),
+		'UPDATE'
+	);
+End //
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS after_delete_event;
+DELIMITER //
+CREATE TRIGGER after_delete_event
+AFTER DELETE ON evenements
+FOR EACH ROW 
+BEGIN
+	INSERT INTO old_events (
+		idold,
+		idevent,
+		nomevent,
+		dateevent,
+		lieuevent,
+		nbievent,
+		prixplaceevent,
+		placestotal,
+		date_histo,
+		event_histo
+	) VALUES (
+		idold,
+		OLD.idevent,
+		OLD.nomevent,
+		OLD.dateevent,
+		OLD.lieuevent,
+		OLD.nbievent,
+		OLD.prixplaceevent,
+		OLD.placestotal,
+		NOW(),
+		'DELETE'
+	);
+End //
+DELIMITER ;
+
+-- test
+UPDATE evenements SET nomevent = "TEST" WHERE idevent = 1;
+DELETE FROM evenements WHERE idevent = 4;

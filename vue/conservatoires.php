@@ -42,20 +42,13 @@
 										while ($donnees = $view->fetch()) { ?>
 											<tr>
 												<form method="post" action="">
-												<td><?= $donnees['idconserv'] ?></td>
-												<?= $forms->edit('text', 'nomconserv', $donnees['nomconserv']) ?>
-												<?= $forms->edit('text', 'adresseconserv', $donnees['adresseconserv']) ?>
-												<?= $forms->edit('text', 'telephone', $donnees['telephone']) ?>
-												<?= $forms->edit('number', 'effectifs', $donnees['effectifs']) ?>
-												<?= $forms->edit('text', 'datecreationconserv', $donnees['datecreationconserv']) ?>
-												<td>
-													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
-														<i class="align-middle" data-feather="check"></i>
-													</button>
-													<button type="submit" name="retour" class="btn btn-primary" style="background-color: red; border-color: red;">
-														<i class="align-middle" data-feather="x"></i>
-													</button>
-												</td>
+													<td><?= $donnees['idconserv'] ?></td>
+													<?= $forms->edit('text', 'nomconserv', $donnees['nomconserv']) ?>
+													<?= $forms->edit('text', 'adresseconserv', $donnees['adresseconserv']) ?>
+													<?= $forms->edit('text', 'telephone', $donnees['telephone']) ?>
+													<?= $forms->edit('number', 'effectifs', $donnees['effectifs']) ?>
+													<?= $forms->edit('date', 'datecreationconserv', $donnees['datecreationconserv']) ?>
+													<?= $forms->buttons() ?>
 												</form>
 											</tr>
 											<?php

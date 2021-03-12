@@ -37,3 +37,17 @@ Insert into compteur values
 (10, "Nombre d'inscription à une école", 4),
 (11, "Nombre de mariages", 2),
 (12, "Nombre de conservatoire", 22);
+
+Create table old_events (
+	idold int(11) not null auto_increment,
+	idevent int(11) not null,
+	nomevent varchar(50),
+	dateevent date,
+	lieuevent varchar(50),
+	nbievent int(25),
+	prixplaceevent float(25),
+	placestotal int(25),
+	date_histo datetime,
+	event_histo varchar(10),
+	primary key (idold, idevent)
+) ENGINE=InnoDB;

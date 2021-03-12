@@ -95,6 +95,20 @@ Insert into compteur values
 (11, "Nombre de mariages", 2),
 (12, "Nombre de conservatoire", 22);
 
+Create table old_events (
+    idold int(11) not null auto_increment,
+    idevent int(11) not null,
+    nomevent varchar(50),
+    dateevent date,
+    lieuevent varchar(50),
+    nbievent int(25),
+    prixplaceevent float(25),
+    placestotal int(25),
+    date_histo datetime,
+    event_histo varchar(10),
+    primary key (idold, idevent)
+) ENGINE=InnoDB;
+
 DROP TRIGGER IF EXISTS compteur_insert_utilisateur;
 DELIMITER //
 CREATE TRIGGER compteur_insert_utilisateur
@@ -364,6 +378,68 @@ AFTER DELETE ON inscrits_ecoles
 FOR EACH ROW 
 BEGIN
 UPDATE ecoles SET eleves = eleves - 1;
+End //
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS after_update_event;
+DELIMITER //
+CREATE TRIGGER after_update_event
+AFTER UPDATE ON evenements
+FOR EACH ROW 
+BEGIN
+    INSERT INTO old_events (
+        idevent,
+        nomevent,
+        dateevent,
+        lieuevent,
+        nbievent,
+        prixplaceevent,
+        placestotal,
+        date_histo,
+        event_histo
+    ) VALUES (
+        OLD.idevent,
+        OLD.nomevent,
+        OLD.dateevent,
+        OLD.lieuevent,
+        OLD.nbievent,
+        OLD.prixplaceevent,
+        OLD.placestotal,
+        NOW(),
+        'UPDATE'
+    );
+End //
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS after_delete_event;
+DELIMITER //
+CREATE TRIGGER after_delete_event
+AFTER DELETE ON evenements
+FOR EACH ROW 
+BEGIN
+    INSERT INTO old_events (
+        idold,
+        idevent,
+        nomevent,
+        dateevent,
+        lieuevent,
+        nbievent,
+        prixplaceevent,
+        placestotal,
+        date_histo,
+        event_histo
+    ) VALUES (
+        idold,
+        OLD.idevent,
+        OLD.nomevent,
+        OLD.dateevent,
+        OLD.lieuevent,
+        OLD.nbievent,
+        OLD.prixplaceevent,
+        OLD.placestotal,
+        NOW(),
+        'DELETE'
+    );
 End //
 DELIMITER ;
 

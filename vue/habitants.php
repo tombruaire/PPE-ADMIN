@@ -43,33 +43,14 @@
 										while ($donnees = $view->fetch()) { ?>
 											<tr>
 												<form method="post" action="">
-												<td><?= $donnees['idhab'] ?></td>
-												<td>
-													<input type="text" name="nomhab" autocomplete="off" value="<?= $donnees['nomhab'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="prenomhab" autocomplete="off" value="<?= $donnees['prenomhab'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="sexehab" autocomplete="off" value="<?= $donnees['sexehab'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="datenaisshab" autocomplete="off" value="<?= $donnees['datenaisshab'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="adressehab" value="<?= $donnees['adressehab'] ?>" class="form-control">
-												</td>
-												<td>
-													<input type="text" name="professionhab" value="<?= $donnees['professionhab'] ?>" class="form-control">
-												</td>
-												<td>
-													<button type="submit" name="modifier" class="btn btn-primary me-2" style="background-color: green; border-color: green;">
-														<i class="align-middle" data-feather="check"></i>
-													</button>
-													<button type="submit" name="retour" class="btn btn-primary" style="background-color: red; border-color: red;">
-														<i class="align-middle" data-feather="x"></i>
-													</button>
-												</td>
+													<td><?= $donnees['idhab'] ?></td>
+													<?= $forms->edit('text', 'nomhab', $donnees['nomhab']) ?>
+													<?= $forms->edit('text', 'prenomhab', $donnees['prenomhab']) ?>
+													<?= $forms->edit('text', 'sexehab', $donnees['sexehab']) ?>
+													<?= $forms->edit('date', 'datenaisshab', $donnees['datenaisshab']) ?>
+													<?= $forms->edit('text', 'adressehab', $donnees['adressehab']) ?>
+													<?= $forms->edit('text', 'professionhab', $donnees['professionhab']) ?>
+													<?= $forms->buttons() ?>
 												</form>
 											</tr>
 											<?php
