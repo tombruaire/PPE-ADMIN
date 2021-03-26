@@ -126,38 +126,6 @@ FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
 WHERE libelle = "Nombre de participations";//
 DELIMITER ;
 
-DROP TRIGGER IF EXISTS compteur_insert_membres;
-DELIMITER //
-CREATE TRIGGER compteur_insert_membres
-AFTER INSERT ON membres
-FOR EACH ROW UPDATE compteur SET nombre = nombre + 1
-WHERE libelle = "Nombre de membres à une associations";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_delete_membres;
-DELIMITER //
-CREATE TRIGGER compteur_delete_membres
-AFTER DELETE ON membres
-FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
-WHERE libelle = "Nombre de membres à une associations";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_insert_inscriptions;
-DELIMITER //
-CREATE TRIGGER compteur_insert_inscriptions
-AFTER INSERT ON inscrits
-FOR EACH ROW UPDATE compteur SET nombre = nombre + 1
-WHERE libelle = "Nombre d'inscription à une école";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_delete_inscriptions;
-DELIMITER //
-CREATE TRIGGER compteur_delete_inscriptions
-AFTER DELETE ON inscrits
-FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
-WHERE libelle = "Nombre d'inscription à une école";//
-DELIMITER ;
-
 DROP TRIGGER IF EXISTS compteur_insert_mariages;
 DELIMITER //
 CREATE TRIGGER compteur_insert_mariages

@@ -14,4 +14,17 @@ function insertEvent($nomevent, $dateevent, $heureevent, $lieuevent, $prixplacee
 	return $insertion->execute();
 }
 
+function deleteEvent($idevent) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM evenements WHERE idevent = :idevent");
+	$delete->bindValue(':idevent', $idevent, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllEvents() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM evenements");
+	return $delete_all->execute();
+}
+
 ?>

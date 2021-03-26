@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>mairie-villiers.fr - Documentation</title>
+    <title>mairievilliers - Configurations</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +14,7 @@
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-                <h1 class="h1 mb-3 text-center">mairie-villiers.fr - Documentation</h1>
+                <h1 class="h1 mb-3 text-center">mairievilliers - Configurations</h1>
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-auto">
                         <div class="card">
@@ -36,15 +36,26 @@
                                                 Base de données - Partie 2
                                             </h3>
                                             <p class="text-center text-warning fw-bold">À rajouter dans la base de données &quot;villiers.sql&quot; sur le terminal ou phpMyAdmin</p>
+                                            <div class="mb-3">
+                                                <i class="align-middle ms-2" data-feather="hard-drive"></i> C :
+                                                <i class="align-middle" data-feather="chevron-right"></i>
+                                                <strong>📁 wamp | xampp</strong>
+                                                <i class="align-middle" data-feather="chevron-right"></i>
+                                                <strong>📁 www | htdocs</strong>
+                                                <i class="align-middle" data-feather="chevron-right"></i>
+                                                <strong>📁 PPE-ADMIN</strong>
+                                                <i class="align-middle" data-feather="chevron-right"></i>
+                                                <strong>📄 admin.sql</strong>
+                                            </div>
                                             <i class="align-middle ms-2" data-feather="hard-drive"></i> C :
                                             <i class="align-middle" data-feather="chevron-right"></i>
                                             <strong>📁 wamp | xampp</strong>
                                             <i class="align-middle" data-feather="chevron-right"></i>
                                             <strong>📁 www | htdocs</strong>
                                             <i class="align-middle" data-feather="chevron-right"></i>
-                                            <strong>📁 PPE-SITE-ADMIN</strong>
+                                            <strong>📁 PPE-ADMIN</strong>
                                             <i class="align-middle" data-feather="chevron-right"></i>
-                                            <strong>📄 admin.sql</strong>
+                                            <strong>📄 trigger.sql</strong>
                                             <p class="text-lg mb-1">
                                                 <br><br><font class="ms-1 text-success">
                                                     Code vérifié sur serveur MySQL
@@ -219,54 +230,6 @@ CREATE TRIGGER compteur_delete_deces
 AFTER DELETE ON deces
 FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
 WHERE libelle = "Nombre de deces";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_insert_participations;
-DELIMITER //
-CREATE TRIGGER compteur_insert_participations
-AFTER INSERT ON participer
-FOR EACH ROW UPDATE compteur SET nombre = nombre + 1
-WHERE libelle = "Nombre de participations";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_delete_participations;
-DELIMITER //
-CREATE TRIGGER compteur_delete_participations
-AFTER DELETE ON participer
-FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
-WHERE libelle = "Nombre de participations";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_insert_membres;
-DELIMITER //
-CREATE TRIGGER compteur_insert_membres
-AFTER INSERT ON membres
-FOR EACH ROW UPDATE compteur SET nombre = nombre + 1
-WHERE libelle = "Nombre de membres à une associations";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_delete_membres;
-DELIMITER //
-CREATE TRIGGER compteur_delete_membres
-AFTER DELETE ON membres
-FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
-WHERE libelle = "Nombre de membres à une associations";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_insert_inscriptions;
-DELIMITER //
-CREATE TRIGGER compteur_insert_inscriptions
-AFTER INSERT ON inscrits
-FOR EACH ROW UPDATE compteur SET nombre = nombre + 1
-WHERE libelle = "Nombre d'inscription à une école";//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS compteur_delete_inscriptions;
-DELIMITER //
-CREATE TRIGGER compteur_delete_inscriptions
-AFTER DELETE ON inscrits
-FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
-WHERE libelle = "Nombre d'inscription à une école";//
 DELIMITER ;
 
 DROP TRIGGER IF EXISTS compteur_insert_mariages;

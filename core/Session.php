@@ -16,7 +16,7 @@ class Session {
 	public function destroy() {
 		$_SESSION = array();
 		session_destroy();
-		header('Location: connexion');
+		header('Location: http://localhost/PPE-ADMIN/');
 		exit();
 	}
 }

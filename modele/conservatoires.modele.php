@@ -22,4 +22,17 @@ function checkTelephone($telephone) {
     return $requete_telephone_exist->fetchAll(PDO::FETCH_OBJ);
 }
 
+function deleteConserv($idconserv) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM conservatoires WHERE idconserv = :idconserv");
+	$delete->bindValue(':idconserv', $idconserv, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllConserv() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM conservatoires");
+	return $delete_all->execute();
+}
+
 ?>

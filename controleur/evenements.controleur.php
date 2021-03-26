@@ -1,4 +1,6 @@
-<?php require "modele/evenements.modele.php";
+<?php 
+
+require "modele/evenements.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -24,8 +26,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idevent'])) {
 	$idevent  = $_GET['idevent'];
-	$delete = $bdd->prepare("DELETE FROM evenements WHERE idevent = '$idevent'");
-	$delete->execute(array($idevent));
+	$delete = deleteEvent($idevent);
+	header('Location: evenements');
+}
+
+// SUPPRIMER TOUS LES ÉVENEMENTS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllEvents();
 	header('Location: evenements');
 }
 

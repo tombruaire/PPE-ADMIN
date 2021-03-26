@@ -13,4 +13,17 @@ function addUser($nom, $prenom, $pseudo, $email, $motdepasse) {
 	return $insertion->execute();
 }
 
+function deleteUser($id) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM utilisateurs WHERE id = :id");
+	$delete->bindValue(':id', $id, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllUsers() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM utilisateurs");
+	return $delete_all->execute();
+}
+
 ?>

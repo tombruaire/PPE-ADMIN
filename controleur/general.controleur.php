@@ -1,12 +1,13 @@
-<?php require "modele/general.modele.php";
+<?php 
 
-if (isset($_POST['submit'])) {
-	$libelle = $_POST['libelle'];
-	$nombre = $_POST['nombre'];
-	$insert = addCompteur($libelle, $nombre);
-	Alerts::setFlash("Compteur ajouté avec succès !");
+require "modele/general.modele.php";
+
+// SUPPRIMER TOUS LES COMPTEURS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllCompteurs();
+	header('Location: general');
 }
 
-require "vue/general.php";
+require "vue/general.php"; 
 
 ?>

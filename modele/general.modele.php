@@ -1,11 +1,9 @@
 <?php
 
-function addCompteur($libelle, $nombre) {
+function deleteAllCompteurs() {
 	global $bdd;
-	$insert = $bdd->prepare("INSERT INTO compteur (libelle, nombre) VALUES (:libelle, :nombre)");
-	$insert->bindValue(':libelle', $libelle, PDO::PARAM_STR);
-	$insert->bindValue(':nombre', $nombre, PDO::PARAM_INT);
-	return $insert->execute();
+	$delete_all = $bdd->prepare("DELETE FROM compteur");
+	return $delete_all->execute();
 }
 
 ?>

@@ -1,4 +1,6 @@
-<?php require "modele/enfants.modele.php";
+<?php 
+
+require "modele/enfants.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -24,8 +26,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idenf'])) {
 	$idenf  = $_GET['idenf'];
-	$delete = $bdd->prepare("DELETE FROM enfants WHERE idenf = '$idenf'");
-	$delete->execute(array($idenf));
+	$delete = deleteEnfant($idenf);
+	header('Location: enfants');
+}
+
+// SUPPRIMER TOUS LES ENFANTS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllEnfants();
 	header('Location: enfants');
 }
 

@@ -13,7 +13,7 @@ function auth($droit) {
     if(isset($_SESSION['droit']) && $_SESSION['droit'] >= $droit)
         return true;
     else
-        header("Location: http://localhost/PPE-ADMIN/connexion");
+        header("Location: http://localhost/PPE-ADMIN/");
 }
 
 function generateMdp() {

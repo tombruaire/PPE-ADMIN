@@ -14,4 +14,17 @@ function insertHab($nomhab, $prenomhab, $sexehab, $datenaisshab, $adressehab, $p
 	return $insertion->execute();
 }
 
+function deleteHab($idhab) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM habitants WHERE idhab = :idhab");
+	$delete->bindValue(':idhab', $idhab, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllHab() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM habitants");
+	return $delete_all->execute();
+}
+
 ?>

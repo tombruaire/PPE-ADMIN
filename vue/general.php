@@ -12,12 +12,6 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="card animate__animated animate__fadeIn">
-							<div class="card-header">
-								<a class="btn btn-success active fw-bold" data-bs-toggle="modal" href="#add-compt">
-									<i class="align-middle me-1" data-feather="plus"></i>
-									Ajouter un compteur
-								</a>
-							</div>
 							<div class="card-body">
 								<table id="datatables-reponsive" class="table text-center table-striped" style="width:100%">
 									<thead>
@@ -49,28 +43,16 @@
 							</div>
 						</div>
 						<?= Alerts::getFlash(); ?>
+						<div class="d-flex justify-content-center">
+							<form method="post" action="">
+								<button type="submit" name="delete" class="btn btn-danger fs-lg active" onclick="return(confirm('Voulez-vous vraiment supprimer tout les compteurs ?'));">
+									Supprimer tout les compteurs
+								</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 	</div>
-</div>
-
-<!-- FORMULAIRE D'INSERTION -->
-<div class="modal fade" id="add-compt" tabindex="-1" aria-hidden="true">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-	      	<div class="modal-header">
-	        	<h3 class="modal-title">Ajouter un compteur</h3>
-	        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      	</div>
-	      	<div class="modal-body">
-	        	<form method="post" action="">
-	        		<?= $forms->input('libelle', 'edit', 'Libelle', 'text', 'libelle') ?>
-					<?= $forms->input('nombre', 'sort-numeric-up-alt', 'Nombre', 'number', 'nombre') ?>
-					<?= $helpers->submit('submit', 'submit', 'Ajouter') ?>
-				</form>
-	      	</div>
-    	</div>
-  	</div>
 </div>

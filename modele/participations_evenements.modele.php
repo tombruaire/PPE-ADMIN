@@ -25,4 +25,10 @@ function deleteInscription($idpart) {
 	return $delete->execute();
 }
 
+function deleteAllParticipations() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM participations");
+	return $delete_all->execute();
+}
+
 ?>

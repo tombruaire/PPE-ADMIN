@@ -33,10 +33,8 @@ Insert into compteur values
 (6, "Nombre d'enfants", 2),
 (7, "Nombre de décès", 2),
 (8, "Nombre de participations", 2),
-(9, "Nombre de membres d'une association", 2),
-(10, "Nombre d'inscription à une école", 4),
-(11, "Nombre de mariages", 2),
-(12, "Nombre de conservatoire", 22);
+(9, "Nombre de mariages", 2),
+(10, "Nombre de conservatoire", 22);
 
 Create table old_events (
 	idold int(11) not null auto_increment,

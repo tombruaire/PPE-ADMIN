@@ -1,4 +1,6 @@
-<?php require "modele/participations_evenements.modele.php";
+<?php 
+
+require "modele/participations_evenements.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -29,14 +31,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idpart'])) {
 	$idpart  = $_GET['idpart'];
-	$delete = $bdd->prepare("DELETE FROM participations WHERE idpart = '$idpart'");
-	$delete->execute(array($idpart));
+	$delete = deleteInscription($idpart);
 	header('Location: participations_evenements');
 }
 
-if (isset($_GET['idpart'])) {
-	$idpart  = $_GET['idpart'];
-	$delete = deleteInscription($idpart);
+// SUPPRIMER TOUTES LES PARTICIPATIONS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllParticipations();
 	header('Location: participations_evenements');
 }
 

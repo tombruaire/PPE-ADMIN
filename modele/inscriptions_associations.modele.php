@@ -22,9 +22,15 @@ function checkEmail($email) {
 
 function deleteInscription($id_ins) {
 	global $bdd;
-	$delete = $bdd->prepare("DELETE FROM inscrits_associations WHERE id_ins = '$id_ins'");
-	$delete->execute(array($id_ins));
+	$delete = $bdd->prepare("DELETE FROM inscrits_associations WHERE id_ins = :id_ins");
+	$delete->bindValue(':id_ins', $id_ins, PDO::PARAM_INT);
 	return $delete->execute();
+}
+
+function deleteAllInsAssoc() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM inscrits_associations");
+	return $delete_all->execute();
 }
 
 ?>

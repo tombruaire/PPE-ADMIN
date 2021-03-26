@@ -1,4 +1,6 @@
-<?php require "modele/deces.modele.php";
+<?php 
+
+require "modele/deces.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -21,8 +23,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idd'])) {
 	$idd  = $_GET['idd'];
-	$delete = $bdd->prepare("DELETE FROM deces WHERE idd = '$idd'");
-	$delete->execute(array($idd));
+	$delete = deleteDeces($idd);
+	header('Location: deces');
+}
+
+// SUPPRIMER TOUS LES DÉCES
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllDeces();
 	header('Location: deces');
 }
 

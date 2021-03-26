@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>mairievilliers - Administration</title>
     <meta charset="utf-8">
@@ -12,7 +11,6 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
-
 <body data-sidebar-position="left" data-sidebar-behavior="sticky">
 
     <div class="wrapper">

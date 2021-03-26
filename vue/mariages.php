@@ -53,6 +53,13 @@
 							</div>
 						</div>
 						<?= Alerts::getFlash(); ?>
+						<div class="d-flex justify-content-center">
+							<form method="post" action="">
+								<button type="submit" name="delete" class="btn btn-danger fs-lg active" onclick="return(confirm('Voulez-vous vraiment supprimer tous les mariages ?'));">
+									Supprimer tous les mariages
+								</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

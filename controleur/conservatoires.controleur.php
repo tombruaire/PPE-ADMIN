@@ -1,4 +1,6 @@
-<?php require "modele/conservatoires.modele.php";
+<?php 
+
+require "modele/conservatoires.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -33,8 +35,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idconserv'])) {
 	$idconserv  = $_GET['idconserv'];
-	$delete = $bdd->prepare("DELETE FROM conservatoires WHERE idconserv = '$idconserv'");
-	$delete->execute(array($idconserv));
+	$delete = deleteConserv($idconserv);
+	header('Location: conservatoires');
+}
+
+// SUPRIMER TOUS LES CONSERVATOIRES
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllConserv();
 	header('Location: conservatoires');
 }
 

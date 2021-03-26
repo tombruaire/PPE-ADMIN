@@ -1,4 +1,6 @@
-<?php require "modele/associations.modele.php";
+<?php 
+
+require "modele/associations.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -22,8 +24,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['delete'])) {
 	$idassoc  = $_GET['delete'];
-	$delete = $bdd->prepare("DELETE FROM associations WHERE idassoc = '$idassoc'");
-	$delete->execute(array($idassoc));
+	$delete = deleteAssoc($idassoc);
+	header('Location: associations');
+}
+
+// SUPPRIMER TOUTES LES ASSOCIATIONS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllAssoc();
 	header('Location: associations');
 }
 

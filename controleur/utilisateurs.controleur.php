@@ -1,4 +1,6 @@
-<?php require "modele/utilisateurs.modele.php";
+<?php 
+
+require "modele/utilisateurs.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -23,21 +25,25 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['delete'])) {
 	$id  = $_GET['delete'];
-	$delete = $bdd->prepare("DELETE FROM utilisateurs WHERE id = '$id'");
-	$delete->execute(array($id));
+	$delete = deleteUser($id);
 	header('Location: utilisateurs');
 }
 
-
-// Banir
+// BANIR
 if (isset($_GET['ban'])) {
 	$bdd->query("UPDATE utilisateurs SET lvl = 0 WHERE id = ".$_GET['ban']);
 	header('Location: utilisateurs');
 }
 
-// Débanir
+// DÉBANIR
 if (isset($_GET['deban'])) {
 	$bdd->query("UPDATE utilisateurs SET lvl = 1 WHERE id = ".$_GET['deban']);
+	header('Location: utilisateurs');
+}
+
+// SUPPRIMER TOUS LES UTILISATEURS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllUsers();
 	header('Location: utilisateurs');
 }
 

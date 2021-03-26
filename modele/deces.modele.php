@@ -9,4 +9,17 @@ function insertDeces($dated, $motifd, $prenomhab) {
 	return $insertion->execute();
 }
 
+function deleteDeces($idd) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM deces WHERE idd = :idd");
+	$delete->bindValue(':idd', $idd, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllDeces() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM deces");
+	return $delete_all->execute();
+}
+
 ?>

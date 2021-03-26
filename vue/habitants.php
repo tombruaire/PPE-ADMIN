@@ -101,6 +101,13 @@
 							</div>
 						</div>
 						<?= Alerts::getFlash(); ?>
+						<div class="d-flex justify-content-center">
+							<form method="post" action="">
+								<button type="submit" name="delete" class="btn btn-danger fs-lg active" onclick="return(confirm('Voulez-vous vraiment supprimer tout les habitants ?'));">
+									Supprimer tout les habitants
+								</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -121,7 +128,7 @@
 	        		<?= $forms->input('nomhab', 'user-alt', 'Nom de l\'habitant', 'text', 'nomhab') ?>
 	        		<?= $forms->input('prenomhab', 'user-alt', 'Prénom de l\'habitant', 'text', 'prenomhab') ?>
 	        		<?= $helpers->select('sexehab', 'venus-mars', 'Sexe de l\'habitant', 'sexehab', array('Feminin'=>'Féminin', 'Masculin'=>'Masculin')) ?>
-					<?= $forms->input('datepicker', 'birthday-cake', 'Date de naissance de l\'habitant', 'text', 'datenaisshab') ?>
+					<?= $forms->input('datenaisshab', 'birthday-cake', 'Date de naissance de l\'habitant', 'date', 'datenaisshab') ?>
 					<?= $forms->input('adressehab', 'map-marker-alt', 'Adresse de l\'habitant', 'text', 'adressehab') ?>
 					<?= $forms->input('professionhab', 'user-tie', 'Profession de l\'habitant', 'text', 'professionhab') ?>
 					<?= $helpers->submit('submit', 'submit', 'Ajouter') ?>

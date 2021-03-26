@@ -17,7 +17,7 @@ if (isset($_GET['p'])) {
     else
         $page = "404";
 } else {
-    $page = "accueil";
+    $page = "connexion";
 }
 
 ob_start();

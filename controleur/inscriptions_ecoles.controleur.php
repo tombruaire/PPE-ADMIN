@@ -2,6 +2,7 @@
 
 require "modele/inscriptions_ecoles.modele.php";
 
+// INSERTION
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -24,9 +25,16 @@ if (isset($_POST['submit'])) {
 	}
 }
 
+// SUPPRIMER UNE INSCRIPTION
 if (isset($_GET['id_ins'])) {
 	$id_ins  = $_GET['id_ins'];
 	$delete = deleteInscription($id_ins);
+	header('Location: inscriptions_ecoles');
+}
+
+// SUPPRIMER TOUTES LES INSCRIPTIONS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllInsEcoles();
 	header('Location: inscriptions_ecoles');
 }
 

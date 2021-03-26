@@ -10,7 +10,7 @@ class Alerts {
 	        extract($_SESSION['flash']);
 	        unset($_SESSION['flash']);
 	        return "
-	        <div class='alert alert-$type alert-dismissible animate__animated animate__bounceIn' role='alert'>
+	        <div class='alert alert-$type alert-dismissible animate__animated animate__bounceIn mb-3' role='alert'>
 	            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
 	            <div class='alert-message'>$message&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	        </div>

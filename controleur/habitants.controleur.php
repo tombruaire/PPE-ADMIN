@@ -1,4 +1,6 @@
-<?php require "modele/habitants.modele.php";
+<?php 
+
+require "modele/habitants.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -24,8 +26,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idhab'])) {
 	$idhab  = $_GET['idhab'];
-	$delete = $bdd->prepare("DELETE FROM habitants WHERE idhab = '$idhab'");
-	$delete->execute(array($idhab));
+	$delete = deleteHab($idhab);
+	header('Location: habitants');
+}
+
+// SUPPRIMER TOUS LES HABITANTS
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllHab();
 	header('Location: habitants');
 }
 

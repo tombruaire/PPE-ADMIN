@@ -1,4 +1,6 @@
-<?php require "modele/ecoles.modele.php";
+<?php 
+
+require "modele/ecoles.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -17,8 +19,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idec'])) {
 	$idec  = $_GET['idec'];
-	$delete = $bdd->prepare("DELETE FROM ecoles WHERE idec = '$idec'");
-	$delete->execute(array($idec));
+	$delete = deleteEcole($idec);
+	header('Location: ecoles');
+}
+
+// SUPPRIMER TOUTES LES ÉCOLES 
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllEcoles();
 	header('Location: ecoles');
 }
 

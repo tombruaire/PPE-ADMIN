@@ -11,4 +11,17 @@ function insertMariage($prenomhab1, $prenomhab2, $datem, $heurem, $datediv) {
 	return $insertion->execute();
 }
 
+function deleteMariage($idhab1) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM marier WHERE idhab1 = :idhab1");
+	$delete->bindValue(':idhab1', $idhab1, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllMariages() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM marier");
+	return $delete_all->execute();
+}
+
 ?>

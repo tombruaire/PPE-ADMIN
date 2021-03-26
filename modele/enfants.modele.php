@@ -15,4 +15,17 @@ function insertEnf($nomenf, $prenomenf, $datenaissenf, $sexenf, $classedage, $tu
 	return $insertion->execute();
 }
 
+function deleteEnfant($idenf) {
+	global $bdd;
+	$delete = $bdd->prepare("DELETE FROM enfants WHERE idenf = :idenf");
+	$delete->bindValue(':idenf', $idenf, PDO::PARAM_INT);
+	return $delete->execute();
+}
+
+function deleteAllEnfants() {
+	global $bdd;
+	$delete_all = $bdd->prepare("DELETE FROM enfants");
+	return $delete_all->execute();
+}
+
 ?>

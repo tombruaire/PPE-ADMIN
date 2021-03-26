@@ -1,4 +1,6 @@
-<?php require "modele/mariages.modele.php";
+<?php 
+
+require "modele/mariages.modele.php";
 
 // INSERTION
 if (isset($_POST['submit'])) {
@@ -23,8 +25,13 @@ if (isset($_POST['retour'])) {
 // SUPPRESSION
 if (isset($_GET['idhab1'])) {
 	$idhab1  = $_GET['idhab1'];
-	$delete = $bdd->prepare("DELETE FROM marier WHERE idhab1 = '$idhab1'");
-	$delete->execute(array($idhab1));
+	$delete = deleteMariage($idhab1);
+	header('Location: mariages');
+}
+
+// SUPPRIMER TOUS LES MARIAGES
+if (isset($_POST['delete'])) {
+	$delete_all = deleteAllMariages();
 	header('Location: mariages');
 }
 
