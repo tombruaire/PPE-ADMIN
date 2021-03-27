@@ -158,7 +158,7 @@ FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
 WHERE libelle = "Nombre de conservatoire";//
 DELIMITER ;
 
--- INSERTION D'UN INSCRIT À UN ÉVENEMENT
+-- INSERTION D'UNE PARTICIPATION À UN ÉVENEMENT
 DROP TRIGGER IF EXISTS insert_inscrit_evenements;
 DELIMITER //
 CREATE TRIGGER insert_inscrit_evenements
@@ -169,7 +169,7 @@ UPDATE evenements SET nbievent = nbievent + 1;
 End //
 DELIMITER ;
 
--- SUPPRESSION D'UN INSCRIT À UN ÉVENEMENT
+-- SUPPRESSION D'UNE PARTICIPATION À UN ÉVENEMENT
 DROP TRIGGER IF EXISTS delete_inscrit_evenements;
 DELIMITER //
 CREATE TRIGGER delete_inscrit_evenements
@@ -313,3 +313,30 @@ DELIMITER ;
 -- test
 UPDATE evenements SET nomevent = "TEST" WHERE idevent = 1;
 DELETE FROM evenements WHERE idevent = 4;
+
+-- FUNCTION ET TRIGGER QUI ANNULE L'INSERTION SI LE PSEUDO DE L'UTILISATEUR EXISTE DEJA
+DROP FUNCTION IF EXISTS check_pseudo_utilisateur;
+DELIMITER //
+CREATE FUNCTION check_pseudo_utilisateur (newpseudo VARCHAR(15))
+RETURNS INT
+BEGIN
+    SELECT count(*) FROM utilisateurs WHERE pseudo = newpseudo INTO @result;
+    RETURN @result;
+END//
+DELIMITER ;
+
+SELECT check_pseudo_utilisateur ('tombruaire');
+
+DROP TRIGGER IF EXISTS valide_insertion;
+DELIMITER //
+CREATE TRIGGER valide_insertion 
+BEFORE INSERT ON utilisateurs
+FOR EACH ROW
+BEGIN
+    IF check_pseudo_utilisateur(NEW.pseudo) 
+    THEN
+        signal sqlstate'45000'
+        set message_text='Ce pseudo est déjà utilisé';   
+    END IF;
+END //
+DELIMITER ;
