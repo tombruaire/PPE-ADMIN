@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
 	$datem = $_POST['datem'];
 	$heurem = $_POST['heurem'];
 	$datediv = $_POST['datediv'];
-	if ($datem <= date("mm/dd/YYYY")) {
+	if ($datem <= date("Y-m-d")) {
 		$insertion = insertMariage($prenomhab1, $prenomhab2, $datem, $heurem, $datediv);
 		Alerts::setFlash("Mariage ajouté avec succès !");
 	} else {

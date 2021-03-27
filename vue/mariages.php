@@ -32,7 +32,7 @@
 									</thead>
 									<tbody>
 										<?php
-										$view = $bdd->query("SELECT * FROM viewMariage");
+										$view = $bdd->query("SELECT * FROM viewMariage ORDER BY idhab1 DESC");
 										while ($donnees = $view->fetch()) {
 										?>
 										<tr>
@@ -103,9 +103,9 @@
 							<?php } ?>
 						</select>
 					</div>
-					<?= $forms->input('datepicker', 'calendar-alt', 'Date du mariage', 'text', 'datem') ?>
+					<?= $forms->input('datem', 'calendar-alt', 'Date du mariage', 'date', 'datem') ?>
 					<?= $forms->input('heurem', 'clock', 'Heure du mariage', 'time', 'heurem') ?>
-					<?= $forms->input('datepicker2', 'calendar-alt', 'Date du divorce', 'text', 'datediv') ?>
+					<?= $forms->input('datediv', 'calendar-alt', 'Date du divorce', 'date', 'datediv') ?>
 					<?= $helpers->submit('submit', 'submit', 'Ajouter') ?>
 				</form>
 	      	</div>

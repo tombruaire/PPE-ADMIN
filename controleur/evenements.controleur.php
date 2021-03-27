@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
 	$lieuevent = $_POST['lieuevent'];
 	$prixplaceevent = $_POST['prixplaceevent'];
     $placestotal = $_POST['placestotal'];
-    if ($dateevent >= date("mm/dd/YYYY")) {
+    if ($dateevent >= date("Y-m-d")) {
     	$requete = insertEvent($nomevent, $dateevent, $heureevent, $lieuevent, $prixplaceevent, $placestotal);
 		Alerts::setFlash("Évènement ajouté avec succès !");
     } else {

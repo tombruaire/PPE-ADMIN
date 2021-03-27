@@ -75,7 +75,7 @@
 	      	</div>
 	      	<div class="modal-body">
 	        	<form method="post" action="">
-	        		<?= $forms->input('datepicker', 'calendar-alt', 'Date du décès', 'text', 'dated') ?>
+	        		<?= $forms->input('dated', 'calendar-alt', 'Date du décès', 'date', 'dated') ?>
 					<?= $forms->input('motifd', 'pen', 'Motif du décès', 'text', 'motifd') ?>
 					<div class="mb-3">
 						<label for="prenomhab" class="form-label text-dark">

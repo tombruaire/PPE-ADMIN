@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
 	$sexenf = $_POST['sexenf'];
 	$classedage = $_POST['classedage'];
 	$tuteur = $_POST['tuteur'];
-	if ($datenaissenf <= date("mm/dd/YYYY")) {
+	if ($datenaissenf <= date("Y-m-d")) {
 		$insertion = insertEnf($nomenf, $prenomenf, $datenaissenf, $sexenf, $classedage, $tuteur);
 		Alerts::setFlash("Enfant ajouté avec succès !");
 	} else {

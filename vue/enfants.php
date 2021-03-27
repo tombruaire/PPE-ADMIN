@@ -83,7 +83,7 @@
 	        	<form method="post" action="">
 	        		<?= $forms->input('nomenf', 'user-alt', 'Nom de l\'enfant', 'text', 'nomenf') ?>
 					<?= $forms->input('prenomenf', 'user-alt', 'Prénom de l\'enfant', 'text', 'prenomenf') ?>
-					<?= $forms->input('datepicker', 'birthday-cake', 'Date de naissance de l\'enfant', 'text', 'datenaissenf') ?>
+					<?= $forms->input('datenaissenf', 'birthday-cake', 'Date de naissance de l\'enfant', 'date', 'datenaissenf') ?>
 					<?= $helpers->select('sexenf', 'venus-mars', 'Sexe de l\'enfant', 'sexenf', array('Fille'=>'Filles', 'Garcon'=>'Garçon')) ?>
 					<?= $forms->input('classedage', 'user-check', 'Classe d\'âge de l\'enfant', 'text', 'classedage') ?>
 					<?= $forms->input('tuteur', 'user-tie', 'Tuteur', 'text', 'tuteur') ?>

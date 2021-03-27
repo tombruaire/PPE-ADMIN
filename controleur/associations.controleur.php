@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
 	$siegeassoc = $_POST['siegeassoc'];
 	$datecreationassoc = $_POST['datecreationassoc'];
 	$inscrits = $_POST['inscrits'];
-	if ($datecreationassoc <= date("mm/dd/YYYY")) {
+	if ($datecreationassoc <= date("Y-m-d")) {
 		$insertion = insertAssoc($nomassoc, $siegeassoc, $datecreationassoc, $inscrits);
 		Alerts::setFlash("Association ajoutée avec succès !");
 	} else {

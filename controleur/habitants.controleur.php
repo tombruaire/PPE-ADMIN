@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
 	$datenaisshab = $_POST['datenaisshab'];
 	$adressehab = $_POST['adressehab'];
 	$professionhab = $_POST['professionhab'];
-	if ($datenaisshab <= date("mm/dd/YYYY")) {
+	if ($datenaisshab <= date("Y-m-d")) {
     	$insertion = insertHab($nomhab, $prenomhab, $sexehab, $datenaisshab, $adressehab, $professionhab);
 		Alerts::setFlash("Habitant ajouté avec succès !");
     } else {

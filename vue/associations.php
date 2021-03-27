@@ -117,7 +117,7 @@
 	        	<form method="post" action="">
 	        		<?= $forms->input('nomassoc', 'pen', 'Nom de l\'association', 'text', 'nomassoc') ?>
 	        		<?= $forms->input('siegeassoc', 'map-marker-alt', 'Siège de l\'association', 'text', 'siegeassoc') ?>
-					<?= $forms->input('datepicker', 'clock', 'Date de création de l\'association', 'text', 'datecreationassoc') ?>
+					<?= $forms->input('datecreationassoc', 'calendar', 'Date de création de l\'association', 'date', 'datecreationassoc') ?>
 					<?= $forms->input('inscrits', 'users', 'Nombre d\'inscrits', 'number', 'inscrits') ?>
 					<?= $helpers->submit('submit', 'submit', 'Ajouter') ?>
 				</form>

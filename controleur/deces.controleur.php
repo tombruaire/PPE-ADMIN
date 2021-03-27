@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
 	$dated = $_POST['dated'];
 	$motifd = $_POST['motifd'];
 	$prenomhab = $_POST['prenomhab'];
-	if ($dated <= date("mm/dd/YYYY")) {
+	if ($dated <= date("Y-m-d")) {
 		$insertion = insertDeces($dated, $motifd, $prenomhab);
 		Alerts::setFlash("Décès ajouté avec succès !");
 	} else {

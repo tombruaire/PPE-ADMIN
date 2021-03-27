@@ -124,7 +124,7 @@
 	        		<?= $forms->input('adresse', 'map-marker-alt', 'Adresse du conservatoire', 'text', 'adresseconserv') ?>
 	        		<?= $forms->input('tel', 'phone-alt', 'Numéro de téléphone', 'text', 'telephone') ?>
 	        		<?= $forms->input('effectif', 'users', 'Effectifs', 'number', 'effectifs') ?>
-	        		<?= $forms->input('datepicker', 'calendar-alt', 'Date de création', 'text', 'datecreationconserv') ?>
+	        		<?= $forms->input('datecreationconserv', 'calendar-alt', 'Date de création', 'date', 'datecreationconserv') ?>
                     <?= $helpers->submit('submit', 'submit', 'Ajouter') ?>
 				</form>
 	      	</div>

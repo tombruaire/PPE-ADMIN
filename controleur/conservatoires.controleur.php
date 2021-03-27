@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 	if ($telephonelength <= 10) {
 		$requete_telephone_exist = checkTelephone($telephone);
 		if (!$requete_telephone_exist) {
-			if ($datecreationconserv <= date("mm/dd/YYYY")) {
+			if ($datecreationconserv <= date("Y-m-d")) {
 				$insertion = insertConservatoire($nomconserv, $adresseconserv, $telephone, $effectifs, $datecreationconserv);
 				Alerts::setFlash("Conservatoire ajouté avec succès !");
 			} else {
