@@ -2,7 +2,6 @@
 
 require "modele/habitants.modele.php";
 
-// INSERTION
 if (isset($_POST['submit'])) {
 	$nomhab = $_POST['nomhab'];
 	$prenomhab = $_POST['prenomhab'];
@@ -10,27 +9,28 @@ if (isset($_POST['submit'])) {
 	$datenaisshab = $_POST['datenaisshab'];
 	$adressehab = $_POST['adressehab'];
 	$professionhab = $_POST['professionhab'];
-	if ($datenaisshab <= date("Y-m-d")) {
-    	$insertion = insertHab($nomhab, $prenomhab, $sexehab, $datenaisshab, $adressehab, $professionhab);
-		Alerts::setFlash("Habitant ajouté avec succès !");
-    } else {
-    	Alerts::setFlash("La date de naissance ne peut pas être supérieur à la date du jour.", "danger");
-    }
+	if ($nomhab != "" && $prenomhab != "" && $datenaisshab != "" && $adressehab != "" && $professionhab != "") {
+		if ($datenaisshab <= date("Y-m-d")) {
+	    	$insertion = insertHab($nomhab, $prenomhab, $sexehab, $datenaisshab, $adressehab, $professionhab);
+			Alerts::setFlash("Insertion réussi !", "Habitant ajoutée avec succès !");
+	    } else {
+	    	Alerts::setFlash("Echec de l'insertion", "La date de naissance ne peut pas être supérieur à la date du jour !", "danger");
+	    }
+	} else {
+		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
+	}
 }
 
-// RETOUR
 if (isset($_POST['retour'])) {
 	header('Location: habitants');
 }
 
-// SUPPRESSION
 if (isset($_GET['idhab'])) {
 	$idhab  = $_GET['idhab'];
 	$delete = deleteHab($idhab);
 	header('Location: habitants');
 }
 
-// SUPPRIMER TOUS LES HABITANTS
 if (isset($_POST['delete'])) {
 	$delete_all = deleteAllHab();
 	header('Location: habitants');

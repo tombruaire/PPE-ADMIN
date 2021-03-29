@@ -2,7 +2,6 @@
 
 require "modele/inscriptions_conservatoires.modele.php";
 
-// INSERTION
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -21,35 +20,33 @@ if (isset($_POST['submit'])) {
 						$tellength = strlen($tel);
 						if ($tellength <= 10) {
 							$insertion = insertInscription($nom, $prenom, $email, $tel, $adresse, $conservatoire);
-							Alerts::setFlash("Élève ajouté avec succès !");	
+							Alerts::setFlash("Insertion réussi !", "Élève ajouté avec succès !");
 						} else {
-							Alerts::setFlash("Le numéro de téléphone ne doit pas dépasser 10 caractères.", "warning");
+							Alerts::setFlash("Echec de l'insertion", "Le numéro de téléphone ne doit pas dépasser 10 caractères !", "danger");
 						}
 					} else {
-						Alerts::setFlash("Cette adresse a déjà été enregistré.", "warning");
+						Alerts::setFlash("Echec de l'insertion", "Cette adresse a déjà été enregistré !", "warning");
 					}
 				} else {
-					Alerts::setFlash("Ce numéro de téléphone est déjà enregistré.", "warning");
+					Alerts::setFlash("Echec de l'insertion", "Ce numéro de téléphone est déjà enregistré !", "warning");
 				}
 			} else {
-				Alerts::setFlash("Cette adresse email est déjà utilisé.", "warning");
+				Alerts::setFlash("Echec de l'insertion", "Cette adresse email est déjà utilisé !", "warning");
 			}
 		} else {
-			Alerts::setFlash("Adresse email non valide.", "danger");
+			Alerts::setFlash("Echec de l'insertion", "Adresse email non valide !", "warning");
 		}
 	} else {
-		Alerts::setFlash("Erreur lors de l'inscription, veuillez réessayer.", "danger");
+		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
 	}
 }
 
-// SUPPRIMER UNE INSCRIPTION
 if (isset($_GET['id_ins'])) {
 	$id_ins  = $_GET['id_ins'];
 	$delete = deleteInscription($id_ins);
 	header('Location: inscriptions_conservatoires');
 }
 
-// SUPPRIMER TOUTES LES INSCRIPTIONS
 if (isset($_POST['delete'])) {
 	$delete_all = deleteAllInsConserv();
 	header('Location: inscriptions_conservatoires');

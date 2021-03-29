@@ -2,7 +2,6 @@
 
 require "modele/participations_evenements.modele.php";
 
-// INSERTION
 if (isset($_POST['submit'])) {
 	$emailuser = $_POST['emailuser'];
 	$evenement = $_POST['evenement'];
@@ -11,31 +10,28 @@ if (isset($_POST['submit'])) {
 			$requete_email_exist = checkEmail($emailuser);
 			if (!$requete_email_exist) {
 				$insertion = insertParticipation($emailuser, $evenement);
-				Alerts::setFlash("Participation ajoutée avec succès !");
+				Alerts::setFlash("Insertion réussi !", "Participation ajoutée avec succès !");
 			} else {
-				Alerts::setFlash("Vous ne pouvez pas enregistrer 2 fois la même adresse email.", "warning");
+				Alerts::setFlash("Echec de l'insertion", "Vous ne pouvez pas enregistrer 2 fois la même adresse email !", "danger");
 			}
 		} else {
-			Alerts::setFlash("Adresse email non valide.", "danger");
+			Alerts::setFlash("Echec de l'insertion", "Adresse email non valide !", "warning");
 		}
 	} else {
-		Alerts::setFlash("Erreur lors de l'inscription, veuillez réessayer.", "danger");
+		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
 	}
 }
 
-// RETOUR
 if (isset($_POST['retour'])) {
 	header('Location: participations_evenements');
 }
 
-// SUPPRESSION
 if (isset($_GET['idpart'])) {
 	$idpart  = $_GET['idpart'];
 	$delete = deleteInscription($idpart);
 	header('Location: participations_evenements');
 }
 
-// SUPPRIMER TOUTES LES PARTICIPATIONS
 if (isset($_POST['delete'])) {
 	$delete_all = deleteAllParticipations();
 	header('Location: participations_evenements');

@@ -13,7 +13,7 @@ if (isset($_POST['connexion'])) {
 		$requete = getAdmin($mail, $mdp);
 		if ($requete) {
 			if($requete['droit'] == 0) {
-				Alerts::setFlash("Vous n'avez pas la persmission d'accéder !", "warning");
+				Alerts::setFlash("Erreur de connexion", "Vous n'avez pas la persmission d'accéder !", "warning");
 			} else {
 				$session->setVar('mail', $requete['mail']);
 	    		$session->setVar('droit', $requete['droit']);
@@ -21,10 +21,10 @@ if (isset($_POST['connexion'])) {
 				header('Location: accueil');
 			}
 		} else {
-			Alerts::setFlash("Identifiants incorrects", "danger");
+			Alerts::setFlash("Erreur de connexion", "Identifiants incorrects", "danger");
 		}
 	} else {
-		Alerts::setFlash("Veuillez compléter tous les champs", "warning");
+		Alerts::setFlash("Erreur de connexion", "Veuillez compléter tous les champs", "warning");
 	}
 }
 

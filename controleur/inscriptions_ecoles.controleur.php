@@ -2,7 +2,6 @@
 
 require "modele/inscriptions_ecoles.modele.php";
 
-// INSERTION
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -12,27 +11,25 @@ if (isset($_POST['submit'])) {
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$requete_email_exist = checkEmail($email);
 			if (!$requete_email_exist) {
-					$insertion = insertEcole($nom, $prenom, $email, $ecole);
-					Alerts::setFlash("Inscription réussi avec succès !");	
+					$insertion = insertEcole($nom, $prenom, $email, $ecole);	
+					Alerts::setFlash("Insertion réussi !", "Inscription ajoutée avec succès !");
 			} else {
-				Alerts::setFlash("Cette adresse email est déjà utilisé.", "warning");
+				Alerts::setFlash("Echec de l'insertion", "Cette adresse email est déjà utilisé !", "danger");
 			}
 		} else {
-			Alerts::setFlash("Adresse email non valide.", "danger");
+			Alerts::setFlash("Echec de l'insertion", "Adresse email non valide !", "warning");
 		}
 	} else {
-		Alerts::setFlash("Erreur lors de l'inscription, veuillez réessayer.", "danger");
+		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
 	}
 }
 
-// SUPPRIMER UNE INSCRIPTION
 if (isset($_GET['id_ins'])) {
 	$id_ins  = $_GET['id_ins'];
 	$delete = deleteInscription($id_ins);
 	header('Location: inscriptions_ecoles');
 }
 
-// SUPPRIMER TOUTES LES INSCRIPTIONS
 if (isset($_POST['delete'])) {
 	$delete_all = deleteAllInsEcoles();
 	header('Location: inscriptions_ecoles');

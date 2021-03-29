@@ -2,32 +2,32 @@
 
 require "modele/deces.modele.php";
 
-// INSERTION
 if (isset($_POST['submit'])) {
 	$dated = $_POST['dated'];
 	$motifd = $_POST['motifd'];
 	$prenomhab = $_POST['prenomhab'];
-	if ($dated <= date("Y-m-d")) {
-		$insertion = insertDeces($dated, $motifd, $prenomhab);
-		Alerts::setFlash("Décès ajouté avec succès !");
+	if ($dated != "" && $motifd != "") {
+		if ($dated <= date("Y-m-d")) {
+			$insertion = insertDeces($dated, $motifd, $prenomhab);
+			Alerts::setFlash("Insertion réussi !", "Décés ajouté avec succès !");
+		} else {
+			Alerts::setFlash("Echec de l'insertion", "La date du décès ne peut pas être supérieur à la date du jour !", "danger");
+		}
 	} else {
-		Alerts::setFlash("La date du décès ne peut pas être supérieur à la date du jour.", "danger");
+		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
 	}
 }
 
-// RETOUR
 if (isset($_POST['retour'])) {
 	header('Location: deces');
 }
 
-// SUPPRESSION
 if (isset($_GET['idd'])) {
 	$idd  = $_GET['idd'];
 	$delete = deleteDeces($idd);
 	header('Location: deces');
 }
 
-// SUPPRIMER TOUS LES DÉCES
 if (isset($_POST['delete'])) {
 	$delete_all = deleteAllDeces();
 	header('Location: deces');

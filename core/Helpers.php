@@ -18,13 +18,10 @@ class Helpers {
 		return "<label for='{$id}' class='form-label text-{$class} text-lg'>{$texte}</label>";
 	}
 
-	public function select($id, $icon, $texte, $name, $options = array()) {
-		$html = "<div class='mb-3'>
-		<label for='{$id}' class='form-label text-dark'>
-			<i class='align-middle me-1 fas fa-fw fa-{$icon}'></i>
-			{$texte}
-		</label>
-		<select id='{$id}' name='{$name}' class='form-select form-control-lg'>
+	public function select($id, $texte, $name, $options = array()) {
+		$html = "<div class='form-group'>
+		<label for='{$id}' class='form-label'>{$texte}</label>
+		<select id='{$id}' name='{$name}' class='form-control'>
 		";
 		foreach ($options as $key => $value) {
 			$html .= "<option value='{$key}'>{$value}</option>";
@@ -45,13 +42,23 @@ class Helpers {
 		";
 	}
 
-	public function lien($pageUrl, $pageName) {
+	public function lien($pageUrl, $icon, $pageName) {
 		return "
-		<li class='sidebar-item active'>
-			<a class='sidebar-link' href='{$pageUrl}'>
-      			<span class='align-middle'>{$pageName}</span>
-    		</a>
-		</li>
+		<li class='nav-item'>
+            <a class='d-flex align-items-center' href='{$pageUrl}'>
+                <i data-feather='{$icon}'></i>
+                <span class='menu-title text-truncate'>{$pageName}</span>
+            </a>
+        </li>
+		";
+	}
+
+	public function header($texte) {
+		return "
+		<li class='navigation-header'>
+            <span>$texte</span>
+            <i data-feather='more-horizontal'></i>
+        </li>
 		";
 	}
 }

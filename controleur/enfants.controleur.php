@@ -2,7 +2,6 @@
 
 require "modele/enfants.modele.php";
 
-// INSERTION
 if (isset($_POST['submit'])) {
 	$nomenf = $_POST['nomenf'];
 	$prenomenf = $_POST['prenomenf'];
@@ -10,27 +9,28 @@ if (isset($_POST['submit'])) {
 	$sexenf = $_POST['sexenf'];
 	$classedage = $_POST['classedage'];
 	$tuteur = $_POST['tuteur'];
-	if ($datenaissenf <= date("Y-m-d")) {
-		$insertion = insertEnf($nomenf, $prenomenf, $datenaissenf, $sexenf, $classedage, $tuteur);
-		Alerts::setFlash("Enfant ajouté avec succès !");
+	if ($nomenf != "" && $prenomenf != "" && $datenaissenf !="" && $classedage != "" && $tuteur != "") {
+		if ($datenaissenf <= date("Y-m-d")) {
+			$insertion = insertEnf($nomenf, $prenomenf, $datenaissenf, $sexenf, $classedage, $tuteur);
+			Alerts::setFlash("Insertion réussi !", "Enfant ajouté avec succès !");
+		} else {
+			Alerts::setFlash("Echec de l'insertion", "La date de naissance ne peut pas être supérieur à la date du jour !", "warning");
+		}
 	} else {
-		Alerts::setFlash("La date de naissance ne peut pas être supérieur à la date du jour.", "danger");
+		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
 	}
 }
 
-// RETOUR
 if (isset($_POST['retour'])) {
 	header('Location: enfants');
 }
 
-// SUPPRESSION
 if (isset($_GET['idenf'])) {
 	$idenf  = $_GET['idenf'];
 	$delete = deleteEnfant($idenf);
 	header('Location: enfants');
 }
 
-// SUPPRIMER TOUS LES ENFANTS
 if (isset($_POST['delete'])) {
 	$delete_all = deleteAllEnfants();
 	header('Location: enfants');

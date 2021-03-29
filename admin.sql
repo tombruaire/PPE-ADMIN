@@ -7,8 +7,7 @@ Create table admin (
 ) ENGINE=InnoDB;
 
 Insert into admin values
-(1, "test@gmail.com", "107d348bff437c999a9ff192adcb78cb03b8ddc6", 0),
-(2, "admin@gmail.com", "107d348bff437c999a9ff192adcb78cb03b8ddc6", 1);
+(1, "admin@gmail.com", "107d348bff437c999a9ff192adcb78cb03b8ddc6", 1);
 
 Create table online (
 	id int(11) not null auto_increment,
