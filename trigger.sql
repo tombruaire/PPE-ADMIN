@@ -158,73 +158,72 @@ FOR EACH ROW UPDATE compteur SET nombre = nombre - 1
 WHERE libelle = "Nombre de conservatoire";//
 DELIMITER ;
 
--- INSERTION D'UNE PARTICIPATION À UN ÉVENEMENT
 DROP TRIGGER IF EXISTS insert_inscrit_evenements;
 DELIMITER //
 CREATE TRIGGER insert_inscrit_evenements
 AFTER INSERT ON participations
 FOR EACH ROW 
 BEGIN
-UPDATE evenements SET nbievent = nbievent + 1;
+UPDATE evenements SET nbievent = nbievent + 1
+WHERE nomevent = new.evenement;
 End //
 DELIMITER ;
 
--- SUPPRESSION D'UNE PARTICIPATION À UN ÉVENEMENT
 DROP TRIGGER IF EXISTS delete_inscrit_evenements;
 DELIMITER //
 CREATE TRIGGER delete_inscrit_evenements
 AFTER DELETE ON participations
 FOR EACH ROW 
 BEGIN
-UPDATE evenements SET nbievent = nbievent - 1;
+UPDATE evenements SET nbievent = nbievent - 1
+WHERE nomevent = old.evenement;
 End //
 DELIMITER ;
 
--- INSERTION D'UN ÉLEVE DANS CONSERVATOIRE
 DROP TRIGGER IF EXISTS insert_eleve_conservatoires;
 DELIMITER //
 CREATE TRIGGER insert_eleve_conservatoires
 AFTER INSERT ON inscrits_conservatoires
 FOR EACH ROW 
 BEGIN
-UPDATE conservatoires SET effectifs = effectifs + 1;
+UPDATE conservatoires SET effectifs = effectifs + 1
+WHERE nomconserv = new.conservatoire;
 End //
 DELIMITER ;
 
--- SUPPRESSION D'UN ÉLEVE D'UN CONSERVATOIRE
 DROP TRIGGER IF EXISTS delete_eleve_conservatoires;
 DELIMITER //
 CREATE TRIGGER delete_eleve_conservatoires
 AFTER DELETE ON inscrits_conservatoires
 FOR EACH ROW 
 BEGIN
-UPDATE conservatoires SET effectifs = effectifs - 1;
+UPDATE conservatoires SET effectifs = effectifs - 1
+WHERE nomconserv = old.conservatoire;
 End //
 DELIMITER ;
 
--- INSERTION D'UN INSCRIT DANS UNE ASSOCIATIONS
 DROP TRIGGER IF EXISTS insert_inscrits_associations;
 DELIMITER //
 CREATE TRIGGER insert_inscrits_associations
 AFTER INSERT ON inscrits_associations
 FOR EACH ROW
 BEGIN
-UPDATE associations SET inscrits = inscrits + 1;
+UPDATE associations SET inscrits = inscrits + 1
+WHERE nomassoc = new.association;
 End //
 DELIMITER ;
 
--- SUPPRESSION D'UN INSCRIT D'UNE ASSOCIATION
 DROP TRIGGER IF EXISTS delete_inscrits_associations;
 DELIMITER //
 CREATE TRIGGER delete_inscrits_associations
 AFTER DELETE ON inscrits_associations
 FOR EACH ROW 
 BEGIN
-UPDATE associations SET inscrits = inscrits - 1;
+UPDATE associations SET inscrits = inscrits - 1
+WHERE nomassoc = old.association;
 End //
 DELIMITER ;
 
--- INSERTION D'UN ELEVE DANS UNE ECOLE
 DROP TRIGGER IF EXISTS insert_eleve_ecole;
 DELIMITER //
 CREATE TRIGGER insert_eleve_ecole
@@ -232,11 +231,10 @@ AFTER INSERT ON inscrits_ecoles
 FOR EACH ROW
 BEGIN
 UPDATE ecoles SET eleves = eleves + 1
-WHERE nomec = nomec;
+WHERE nomec = new.ecole;
 End //
 DELIMITER ;
 
--- SUPPRESSION D'UN ELEVE D'UNE ECOLE
 DROP TRIGGER IF EXISTS delete_eleve_ecole;
 DELIMITER //
 CREATE TRIGGER delete_eleve_ecole
@@ -244,7 +242,7 @@ AFTER DELETE ON inscrits_ecoles
 FOR EACH ROW 
 BEGIN
 UPDATE ecoles SET eleves = eleves - 1
-WHERE nomec = nomec;
+WHERE nomec = old.ecole;
 End //
 DELIMITER ;
 
