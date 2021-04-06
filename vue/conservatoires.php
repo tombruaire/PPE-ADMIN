@@ -40,59 +40,32 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM conservatoires ORDER BY idconserv DESC");
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="8">Aucun évènement trouvé dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['idconserv'] ?></td>
-												<?= $forms->edit('text', 'nomconserv', $donnees['nomconserv']) ?>
-												<?= $forms->edit('text', 'adresseconserv', $donnees['adresseconserv']) ?>
-												<?= $forms->edit('text', 'telephone', $donnees['telephone']) ?>
-												<?= $forms->edit('number', 'effectifs', $donnees['effectifs']) ?>
-												<?= $forms->edit('date', 'datecreationconserv', $donnees['datecreationconserv']) ?>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$idconserv = $_GET['edit'];
-											$nomconserv = $_POST['nomconserv'];
-											$adresseconserv = $_POST['adresseconserv'];
-											$telephone = $_POST['telephone'];
-											$effectifs = $_POST['effectifs'];
-											$datecreationconserv = $_POST['datecreationconserv'];
-											$update = $bdd->prepare("UPDATE conservatoires SET nomconserv = :nomconserv, adresseconserv = :adresseconserv, telephone = :telephone, effectifs = :effectifs, datecreationconserv = :datecreationconserv WHERE idconserv = '".$idconserv."' ");
-											$update->bindValue(':nomconserv', $nomconserv, PDO::PARAM_STR);
-											$update->bindValue(':adresseconserv', $adresseconserv, PDO::PARAM_STR);
-											$update->bindValue(':telephone', $telephone, PDO::PARAM_STR);
-											$update->bindValue(':effectifs', $effectifs, PDO::PARAM_INT);
-											$update->bindValue(':datecreationconserv', $datecreationconserv, PDO::PARAM_STR);
-											$update->execute();
-											header('Location: conservatoires');
-										}
-										?>
-									<?php } ?>
-									<?php } else {
-										while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($conservatoires as $conservatoire) { ?>
+									<?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['idconserv'] ?></td>
-										<td><?= $donnees['nomconserv'] ?></td>
-										<td><?= $donnees['adresseconserv'] ?></td>
-										<td><?= $donnees['telephone'] ?></td>
-										<td><?= $donnees['effectifs'] ?></td>
-										<td><?= $donnees['datecreationconserv'] ?></td>
+										<form method="post" action="">
+											<td><?= $conservatoire['idconserv']; ?></td>
+											<?= $forms->edit('text', 'nomconserv', $conservatoire['nomconserv']); ?>
+											<?= $forms->edit('text', 'adresseconserv', $conservatoire['adresseconserv']); ?>
+											<?= $forms->edit('text', 'telephone', $conservatoire['telephone']); ?>
+											<?= $forms->edit('number', 'effectifs', $conservatoire['effectifs']); ?>
+											<?= $forms->edit('date', 'datecreationconserv', $conservatoire['datecreationconserv']); ?>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $conservatoire['idconserv']; ?></td>
+										<td><?= $conservatoire['nomconserv']; ?></td>
+										<td><?= $conservatoire['adresseconserv']; ?></td>
+										<td><?= $conservatoire['telephone']; ?></td>
+										<td><?= $conservatoire['effectifs']; ?></td>
+										<td><?= $conservatoire['datecreationconserv']; ?></td>
 										<td>
-											<a class="btn btn-primary font-weight-bolder mr-25" href="conservatoires&edit=<?= $donnees['idconserv'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="conservatoires&edit=<?= $conservatoire['idconserv']; ?>">
                                                 <i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="conservatoires&idconserv=<?= $donnees['idconserv'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer ce conservatoire ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="conservatoires&idconserv=<?= $conservatoire['idconserv']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer ce conservatoire ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

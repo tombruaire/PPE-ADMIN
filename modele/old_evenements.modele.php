@@ -1,5 +1,12 @@
 <?php
 
+function getAllOldEvents() {
+	global $bdd;
+	$oldsevents = $bdd->query("SELECT * FROM old_events ORDER BY idold DESC");
+	$oldsevents->execute();
+	return $oldsevents->fetchAll();
+}
+
 function deleteHistorique($idold) {
 	global $bdd;
 	$delete = $bdd->prepare("DELETE FROM old_events WHERE idold = '$idold'");

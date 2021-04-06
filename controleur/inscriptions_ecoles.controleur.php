@@ -2,6 +2,8 @@
 
 require "modele/inscriptions_ecoles.modele.php";
 
+$inscriptions = getAllInscriptions();
+
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -12,7 +14,7 @@ if (isset($_POST['submit'])) {
 			$requete_email_exist = checkEmail($email);
 			if (!$requete_email_exist) {
 					$insertion = insertEcole($nom, $prenom, $email, $ecole);	
-					Alerts::setFlash("Insertion réussi !", "Inscription ajoutée avec succès !");
+					header('Location: inscriptions_ecoles');
 			} else {
 				Alerts::setFlash("Echec de l'insertion", "Cette adresse email est déjà utilisé !", "danger");
 			}

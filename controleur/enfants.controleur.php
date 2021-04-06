@@ -2,6 +2,8 @@
 
 require "modele/enfants.modele.php";
 
+$enfants = getAllEnfants();
+
 if (isset($_POST['submit'])) {
 	$nomenf = $_POST['nomenf'];
 	$prenomenf = $_POST['prenomenf'];
@@ -12,7 +14,7 @@ if (isset($_POST['submit'])) {
 	if ($nomenf != "" && $prenomenf != "" && $datenaissenf !="" && $classedage != "" && $tuteur != "") {
 		if ($datenaissenf <= date("Y-m-d")) {
 			$insertion = insertEnf($nomenf, $prenomenf, $datenaissenf, $sexenf, $classedage, $tuteur);
-			Alerts::setFlash("Insertion réussi !", "Enfant ajouté avec succès !");
+			header('Location: enfants');
 		} else {
 			Alerts::setFlash("Echec de l'insertion", "La date de naissance ne peut pas être supérieur à la date du jour !", "warning");
 		}

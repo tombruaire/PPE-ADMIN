@@ -1,5 +1,12 @@
 <?php
 
+function getAllDeces() {
+	global $bdd;
+	$deces = $bdd->query("SELECT * FROM viewDeces ORDER BY idd DESC");
+	$deces->execute();
+	return $deces->fetchAll();
+}
+
 function insertDeces($dated, $motifd, $prenomhab) {
 	global $bdd;
 	$insertion = $bdd->prepare("INSERT INTO deces (dated, motifd, idhab) VALUES (:dated, :motifd, :prenomhab)");

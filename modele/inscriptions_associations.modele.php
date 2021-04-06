@@ -1,5 +1,13 @@
 <?php
 
+function getAllInscriptions() {
+	global $bdd;
+	$inscriptions = $bdd->query("SELECT * FROM inscrits_associations ORDER BY id_ins DESC");
+	$inscriptions->execute();
+	return $inscriptions->fetchAll();
+}
+
+
 function insertInscription($nom, $prenom, $email, $association) {
 	global $bdd;
 	$insertion = $bdd->prepare("INSERT INTO inscrits_associations (nom, prenom, email, association, date_heure_inscription) VALUES (:nom, :prenom, :email, :association, NOW())");

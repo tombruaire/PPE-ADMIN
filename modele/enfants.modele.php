@@ -1,11 +1,16 @@
 <?php
 
+function getAllEnfants() {
+	global $bdd;
+	$enfants = $bdd->query("SELECT * FROM enfants ORDER BY idenf DESC");
+	$enfants->execute();
+	return $enfants->fetchAll();
+}
+
 function insertEnf($nomenf, $prenomenf, $datenaissenf, $sexenf, $classedage, $tuteur) {
 	global $bdd;
-	$insertion = $bdd->prepare("
-		INSERT INTO enfants (nomenf, prenomenf, datenaissenf, sexenf, classedage, tuteur) 
-		VALUES (:nomenf, :prenomenf, :datenaissenf, :sexenf, :classedage, :tuteur)
-	");
+	$insertion = $bdd->prepare("INSERT INTO enfants (nomenf, prenomenf, datenaissenf, sexenf, classedage, tuteur) 
+		VALUES (:nomenf, :prenomenf, :datenaissenf, :sexenf, :classedage, :tuteur)");
 	$insertion->bindValue(':nomenf', $nomenf, PDO::PARAM_STR);
 	$insertion->bindValue(':prenomenf', $prenomenf, PDO::PARAM_STR);
 	$insertion->bindValue(':datenaissenf', $datenaissenf, PDO::PARAM_STR);

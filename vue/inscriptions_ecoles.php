@@ -39,18 +39,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM inscrits_ecoles ORDER BY id_ins DESC");
-									while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($inscriptions as $inscrit) { ?>
 									<tr>
-										<td><?= $donnees['id_ins'] ?></td>
-										<td><?= $donnees['nom'] ?></td>
-										<td><?= $donnees['prenom'] ?></td>
-										<td><?= $donnees['email'] ?></td>
-										<td><?= $donnees['ecole'] ?></td>
+										<td><?= $inscrit['id_ins']; ?></td>
+										<td><?= $inscrit['nom']; ?></td>
+										<td><?= $inscrit['prenom']; ?></td>
+										<td><?= $inscrit['email']; ?></td>
+										<td><?= $inscrit['ecole']; ?></td>
 										<td>
-											<a class="btn btn-danger font-weight-bolder" href="inscriptions_ecoles&id_ins=<?= $donnees['id_ins'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet élève ?'));">
+											<a class="btn btn-danger font-weight-bolder" href="inscriptions_ecoles&id_ins=<?= $inscrit['id_ins']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet élève ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

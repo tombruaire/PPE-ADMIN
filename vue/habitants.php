@@ -41,63 +41,34 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM habitants ORDER BY idhab DESC");
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="9">Aucun habitants trouvé dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['idhab'] ?></td>
-												<?= $forms->edit('text', 'nomhab', $donnees['nomhab']) ?>
-												<?= $forms->edit('text', 'prenomhab', $donnees['prenomhab']) ?>
-												<?= $forms->edit('text', 'sexehab', $donnees['sexehab']) ?>
-												<?= $forms->edit('date', 'datenaisshab', $donnees['datenaisshab']) ?>
-												<?= $forms->edit('text', 'adressehab', $donnees['adressehab']) ?>
-												<?= $forms->edit('text', 'professionhab', $donnees['professionhab']) ?>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$idhab = $_GET['edit'];
-											$nomhab = $_POST['nomhab'];
-											$prenomhab = $_POST['prenomhab'];
-											$sexehab = $_POST['sexehab'];
-											$datenaisshab = $_POST['datenaisshab'];
-											$adressehab = $_POST['adressehab'];
-											$professionhab = $_POST['professionhab'];
-											$update = $bdd->prepare("UPDATE habitants SET nomhab = :nomhab, prenomhab = :prenomhab, sexehab = :sexehab, datenaisshab = :datenaisshab, adressehab = :adressehab, professionhab = :professionhab WHERE idhab = '".$idhab."' ");
-											$update->bindValue(':nomhab', $nomhab, PDO::PARAM_STR);
-											$update->bindValue(':prenomhab', $prenomhab, PDO::PARAM_STR);
-											$update->bindValue(':sexehab', $sexehab, PDO::PARAM_STR);
-											$update->bindValue(':datenaisshab', $datenaisshab, PDO::PARAM_STR);
-											$update->bindValue(':adressehab', $adressehab, PDO::PARAM_STR);
-											$update->bindValue(':professionhab', $professionhab, PDO::PARAM_STR);
-											$update->execute();
-											header('Location: habitants');
-										}
-										?>
-									<?php } ?>
-									<?php } else {
-										while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($habitants as $habitant) { ?>
+									<?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['idhab'] ?></td>
-										<td><?= $donnees['nomhab'] ?></td>
-										<td><?= $donnees['prenomhab'] ?></td>
-										<td><?= $donnees['sexehab'] ?></td>
-										<td><?= $donnees['datenaisshab'] ?></td>
-										<td><?= $donnees['adressehab'] ?></td>
-										<td><?= $donnees['professionhab'] ?></td>
+										<form method="post" action="">
+											<td><?= $habitant['idhab']; ?></td>
+											<?= $forms->edit('text', 'nomhab', $habitant['nomhab']); ?>
+											<?= $forms->edit('text', 'prenomhab', $habitant['prenomhab']); ?>
+											<?= $forms->edit('text', 'sexehab', $habitant['sexehab']); ?>
+											<?= $forms->edit('date', 'datenaisshab', $habitant['datenaisshab']); ?>
+											<?= $forms->edit('text', 'adressehab', $habitant['adressehab']); ?>
+											<?= $forms->edit('text', 'professionhab', $habitant['professionhab']); ?>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $habitant['idhab']; ?></td>
+										<td><?= $habitant['nomhab']; ?></td>
+										<td><?= $habitant['prenomhab']; ?></td>
+										<td><?= $habitant['sexehab']; ?></td>
+										<td><?= $habitant['datenaisshab']; ?></td>
+										<td><?= $habitant['adressehab']; ?></td>
+										<td><?= $habitant['professionhab']; ?></td>
 										<td>
-											<a class="btn btn-primary font-weight-bolder mr-25" href="habitants&edit=<?= $donnees['idhab'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="habitants&edit=<?= $habitant['idhab']; ?>">
                                                 <i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="habitants&idhab=<?= $donnees['idhab'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet habitant ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="habitants&idhab=<?= $habitant['idhab']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet habitant ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

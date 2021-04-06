@@ -38,17 +38,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM viewDeces ORDER BY idd DESC");
-									while ($donnees = $view->fetch()) {
-									?>
+                                    <?php foreach ($deces as $dece) { ?>
 									<tr>
-										<td><?= $donnees['idd'] ?></td>
-										<td><?= $donnees['dated'] ?></td>
-										<td><?= $donnees['motifd'] ?></td>
-										<td><?= $donnees['prenomhab'] ?></td>
+										<td><?= $dece['idd']; ?></td>
+										<td><?= $dece['dated']; ?></td>
+										<td><?= $dece['motifd']; ?></td>
+										<td><?= $dece['prenomhab']; ?></td>
 										<td>
-											<a class="btn btn-danger font-weight-bolder" href="deces&idd=<?= $donnees['idd'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer ce décès ?'));">
+											<a class="btn btn-danger font-weight-bolder" href="deces&idd=<?= $dece['idd']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer ce décès ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

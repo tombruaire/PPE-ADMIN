@@ -2,6 +2,8 @@
 
 require "modele/conservatoires.modele.php";
 
+$conservatoires = getAllConservatoires();
+
 if (isset($_POST['submit'])) {
 	$nomconserv = $_POST['nomconserv'];
 	$adresseconserv = $_POST['adresseconserv'];
@@ -15,7 +17,7 @@ if (isset($_POST['submit'])) {
 			if (!$requete_telephone_exist) {
 				if ($datecreationconserv <= date("Y-m-d")) {
 					$insertion = insertConservatoire($nomconserv, $adresseconserv, $telephone, $effectifs, $datecreationconserv);
-					Alerts::setFlash("Insertion réussi !", "Conservatoire ajouté avec succès !");
+					header('Location: conservatoires');
 				} else {
 					Alerts::setFlash("Echec de l'insertion", "La date de création du conservatoire ne peut pas être supérieur à la date du jour !", "danger");
 				}
@@ -27,6 +29,21 @@ if (isset($_POST['submit'])) {
 		}
 	} else {
 		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
+	}
+}
+
+if (isset($_POST['modifier'])) {
+	$idconserv = $_GET['edit'];
+	$nomconserv = $_POST['nomconserv'];
+	$adresseconserv = $_POST['adresseconserv'];
+	$telephone = $_POST['telephone'];
+	$effectifs = $_POST['effectifs'];
+	$datecreationconserv = $_POST['datecreationconserv'];
+	if ($nomconserv != "" && $adresseconserv != "" && $telephone != "" && $effectifs != "") {
+		$update = updateConservatoire($nomconserv, $adresseconserv, $telephone, $effectifs, $datecreationconserv, $idconserv);
+		header('Location: conservatoires');
+	} else {
+		Alerts::setFlash("Echec de modification", "Les champs ne doivent pas être vide !", "warning");
 	}
 }
 

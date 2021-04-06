@@ -1,5 +1,12 @@
 <?php
 
+function getAllInscriptions() {
+	global $bdd;
+	$inscriptions = $bdd->query("SELECT * FROM inscrits_ecoles ORDER BY id_ins DESC");
+	$inscriptions->execute();
+	return $inscriptions->fetchAll();
+}
+
 function insertEcole($nom, $prenom, $email, $ecole) {
 	global $bdd;
 	$insertion = $bdd->prepare("INSERT INTO inscrits_ecoles (nom, prenom, email, ecole, date_heure_inscription) VALUES (:nom, :prenom, :email, :ecole, NOW())");

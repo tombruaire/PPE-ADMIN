@@ -2,6 +2,8 @@
 
 require "modele/participations_evenements.modele.php";
 
+$participations = getAllParticipations();
+
 if (isset($_POST['submit'])) {
 	$emailuser = $_POST['emailuser'];
 	$evenement = $_POST['evenement'];
@@ -10,7 +12,7 @@ if (isset($_POST['submit'])) {
 			$requete_email_exist = checkEmail($emailuser);
 			if (!$requete_email_exist) {
 				$insertion = insertParticipation($emailuser, $evenement);
-				Alerts::setFlash("Insertion réussi !", "Participation ajoutée avec succès !");
+				header('Location: participations_evenements');
 			} else {
 				Alerts::setFlash("Echec de l'insertion", "Vous ne pouvez pas enregistrer 2 fois la même adresse email !", "danger");
 			}
@@ -19,6 +21,18 @@ if (isset($_POST['submit'])) {
 		}
 	} else {
 		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
+	}
+}
+
+if (isset($_POST['modifier'])) {
+	$idpart = $_GET['edit'];
+	$emailuser = $_POST['emailuser'];
+	$evenement = $_POST['evenement'];
+	if ($emailuser != "" && $evenement != "") {
+		$update = updateParticipation($emailuser, $evenement, $idpart);
+		header('Location: participations_evenements');
+	} else {
+		Alerts::setFlash("Echec de modification", "Les champs ne doivent pas être vide !", "warning");
 	}
 }
 

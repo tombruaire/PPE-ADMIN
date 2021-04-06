@@ -42,67 +42,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<?php
-									$view = $bdd->query("SELECT * FROM evenements ORDER BY idevent DESC");
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="9">Aucun évènement trouvé dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['idevent'] ?></td>
-												<?= $forms->edit('text', 'nomevent', $donnees['nomevent']) ?>
-												<?= $forms->edit('date', 'dateevent', $donnees['dateevent']) ?>
-												<?= $forms->edit('text', 'heureevent', $donnees['heureevent']) ?>
-												<?= $forms->edit('text', 'lieuevent', $donnees['lieuevent']) ?>
-												<?= $forms->edit('number', 'nbievent', $donnees['nbievent']) ?>
-												<?= $forms->edit('number', 'prixplaceevent', $donnees['prixplaceevent']) ?>
-												<?= $forms->edit('number', 'placestotal', $donnees['placestotal']) ?>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$idevent = $_GET['edit'];
-											$nomevent = $_POST['nomevent'];
-											$dateevent = $_POST['dateevent'];
-											$heureevent = $_POST['heureevent'];
-											$lieuevent = $_POST['lieuevent'];
-											$nbievent = $_POST['nbievent'];
-											$prixplaceevent = $_POST['prixplaceevent'];
-                                            $placestotal = $_POST['placestotal'];
-											$update = $bdd->prepare("UPDATE evenements SET nomevent = :nomevent, dateevent = :dateevent, heureevent = :heureevent, lieuevent = :lieuevent, nbievent = :nbievent, prixplaceevent = :prixplaceevent, placestotal = :placestotal WHERE idevent = '".$idevent."' ");
-											$update->bindValue(':nomevent', $nomevent, PDO::PARAM_STR);
-											$update->bindValue(':dateevent', $dateevent, PDO::PARAM_STR);
-											$update->bindValue(':heureevent', $heureevent, PDO::PARAM_STR);
-											$update->bindValue(':lieuevent', $lieuevent, PDO::PARAM_STR);
-											$update->bindValue(':nbievent', $nbievent, PDO::PARAM_INT);
-											$update->bindValue(':prixplaceevent', $prixplaceevent, PDO::PARAM_INT);
-                                            $update->bindValue(':placestotal', $placestotal, PDO::PARAM_INT);
-											$update->execute();
-											header('Location: evenements');
-										}
-										?>
-									<?php } ?>
-									<?php } else {
-										while ($donnees = $view->fetch()) {
-									?>
+                                	<?php foreach ($evenements as $evenement) { ?>
+									<?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['idevent'] ?></td>
-										<td><?= $donnees['nomevent'] ?></td>
-										<td><?= $donnees['dateevent'] ?></td>
-										<td><?= $donnees['heureevent'] ?></td>
-										<td><?= $donnees['lieuevent'] ?></td>
-										<td><?= $donnees['nbievent'] ?></td>
-										<td><?= $donnees['prixplaceevent'] ?></td>
-										<td><?= $donnees['placestotal'] ?></td>
+										<form method="post" action="">
+											<td><?= $evenement['idevent']; ?></td>
+											<?= $forms->edit('text', 'nomevent', $evenement['nomevent']); ?>
+											<?= $forms->edit('date', 'dateevent', $evenement['dateevent']); ?>
+											<?= $forms->edit('text', 'heureevent', $evenement['heureevent']); ?>
+											<?= $forms->edit('text', 'lieuevent', $evenement['lieuevent']); ?>
+											<?= $forms->edit('number', 'nbievent', $evenement['nbievent']); ?>
+											<?= $forms->edit('number', 'prixplaceevent', $evenement['prixplaceevent']); ?>
+											<?= $forms->edit('number', 'placestotal', $evenement['placestotal']); ?>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $evenement['idevent']; ?></td>
+										<td><?= $evenement['nomevent']; ?></td>
+										<td><?= $evenement['dateevent']; ?></td>
+										<td><?= $evenement['heureevent']; ?></td>
+										<td><?= $evenement['lieuevent']; ?></td>
+										<td><?= $evenement['nbievent']; ?></td>
+										<td><?= $evenement['prixplaceevent']; ?></td>
+										<td><?= $evenement['placestotal']; ?></td>
 										<td>
-											<a class="btn btn-primary font-weight-bolder mr-25" href="evenements&edit=<?= $donnees['idevent'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="evenements&edit=<?= $evenement['idevent']; ?>">
                                                 <i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="evenements&idevent=<?= $donnees['idevent'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet évènement ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="evenements&idevent=<?= $evenement['idevent']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet évènement ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

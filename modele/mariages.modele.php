@@ -1,5 +1,12 @@
 <?php
 
+function getAllMariages() {
+	global $bdd;
+	$mariages = $bdd->query("SELECT * FROM viewMariage ORDER BY idhab1 DESC");
+	$mariages->execute();
+	return $mariages->fetchAll();
+}
+
 function insertMariage($prenomhab1, $prenomhab2, $datem, $heurem, $datediv) {
 	global $bdd;
 	$insertion = $bdd->prepare("INSERT INTO marier (idhab1, idhab2, datem, heurem, datediv) VALUES (:prenomhab1, :prenomhab2, :datem, :heurem, :datediv)");

@@ -2,6 +2,8 @@
 
 require "modele/old_evenements.modele.php";
 
+$oldsevents = getAllOldEvents();
+
 if (isset($_GET['idold'])) {
 	$idold  = $_GET['idold'];
 	$delete = deleteHistorique($idold);

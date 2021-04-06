@@ -26,21 +26,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $view = $bdd->query("SELECT * FROM compteur ORDER BY idcompteur DESC");
-                                    if ($view->rowCount() == 0) { ?>
-                                        <tr>
-                                            <td colspan="3">Aucun compteur trouvé</td>
-                                        </tr>
-                                    <?php } else {
-                                        while ($donnees = $view->fetch()) {
-                                    ?>
+                                    <?php foreach ($compteurs as $compteur) { ?>
                                     <tr>
-                                        <td><?= $donnees['idcompteur'] ?></td>
-                                        <td><?= $donnees['libelle'] ?></td>
-                                        <td><?= $donnees['nombre'] ?></td>
+                                        <td><?= $compteur['idcompteur']; ?></td>
+                                        <td><?= $compteur['libelle']; ?></td>
+                                        <td><?= $compteur['nombre']; ?></td>
                                     </tr>
-                                    <?php } ?>
                                     <?php } ?>
                                 </tbody>
                             </table>

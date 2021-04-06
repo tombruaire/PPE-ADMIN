@@ -2,6 +2,8 @@
 
 require "modele/mariages.modele.php";
 
+$mariages = getAllMariages();
+
 if (isset($_POST['submit'])) {
 	$prenomhab1 = $_POST['prenomhab1'];
 	$prenomhab2 = $_POST['prenomhab2'];
@@ -11,7 +13,7 @@ if (isset($_POST['submit'])) {
 	if ($datem != "" && $heurem != "" && $datediv != "") {
 		if ($datem <= date("Y-m-d")) {
 			$insertion = insertMariage($prenomhab1, $prenomhab2, $datem, $heurem, $datediv);
-			Alerts::setFlash("Insertion réussi !", "Mariage ajouté avec succès !");
+			header('Location: mariages');
 		} else {
 			Alerts::setFlash("Echec de l'insertion", "La date du mariage ne peut pas être supérieur à la date du jour !", "danger");
 		}

@@ -39,55 +39,30 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM associations ORDER BY idassoc DESC");
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="6">Aucune association trouvée dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['idassoc'] ?></td>
-												<?= $forms->edit('text', 'nomassoc', $donnees['nomassoc']) ?>
-												<?= $forms->edit('text', 'siegeassoc', $donnees['siegeassoc']) ?>
-												<?= $forms->edit('date', 'datecreationassoc', $donnees['datecreationassoc']) ?>
-												<?= $forms->edit('number', 'inscrits', $donnees['inscrits']) ?>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$idassoc = $_GET['edit'];
-											$nomassoc = $_POST['nomassoc'];
-											$siegeassoc = $_POST['siegeassoc'];
-											$datecreationassoc = $_POST['datecreationassoc'];
-											$inscrits = $_POST['inscrits'];
-											$update = $bdd->prepare("UPDATE associations SET nomassoc = :nomassoc, siegeassoc = :siegeassoc, datecreationassoc = :datecreationassoc, inscrits = :inscrits WHERE idassoc = '".$idassoc."' ");
-											$update->bindValue(':nomassoc', $nomassoc, PDO::PARAM_STR);
-											$update->bindValue(':siegeassoc', $siegeassoc, PDO::PARAM_STR);
-											$update->bindValue(':datecreationassoc', $datecreationassoc, PDO::PARAM_STR);
-											$update->bindValue(':inscrits', $inscrits, PDO::PARAM_INT);
-											$update->execute();
-											header('Location: associations');
-										}
-										?>
-									<?php } ?>
-									<?php } else {
-										while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($associations as $association) { ?>
+									<?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['idassoc'] ?></td>
-										<td><?= $donnees['nomassoc'] ?></td>
-										<td><?= $donnees['siegeassoc'] ?></td>
-										<td><?= $donnees['datecreationassoc'] ?></td>
-										<td><?= $donnees['inscrits'] ?></td>
+										<form method="post" action="">
+											<td><?= $association['idassoc']; ?></td>
+											<?= $forms->edit('text', 'nomassoc', $association['nomassoc']); ?>
+											<?= $forms->edit('text', 'siegeassoc', $association['siegeassoc']); ?>
+											<?= $forms->edit('date', 'datecreationassoc', $association['datecreationassoc']); ?>
+											<?= $forms->edit('number', 'inscrits', $association['inscrits']); ?>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $association['idassoc']; ?></td>
+										<td><?= $association['nomassoc']; ?></td>
+										<td><?= $association['siegeassoc']; ?></td>
+										<td><?= $association['datecreationassoc']; ?></td>
+										<td><?= $association['inscrits']; ?></td>
 										<td>
-											<a class="btn btn-primary font-weight-bolder mr-25" href="associations&edit=<?= $donnees['idassoc'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="associations&edit=<?= $association['idassoc']; ?>">
                                                 <i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="associations&delete=<?= $donnees['idassoc'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cette association ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="associations&delete=<?= $association['idassoc']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cette association ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

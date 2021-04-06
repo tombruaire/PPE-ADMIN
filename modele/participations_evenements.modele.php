@@ -1,5 +1,12 @@
 <?php
 
+function getAllParticipations() {
+	global $bdd;
+	$participations = $bdd->query("SELECT * FROM participations ORDER BY idpart DESC");
+	$participations->execute();
+	return $participations->fetchAll();
+}
+
 function insertParticipation($emailuser, $evenement) {
 	global $bdd;
 	$insertion = $bdd->prepare("INSERT INTO participations (emailuser, evenement, date_heure_inscription) VALUES (:emailuser, :evenement, NOW())");
@@ -7,6 +14,15 @@ function insertParticipation($emailuser, $evenement) {
 	$insertion->bindValue(':evenement', $evenement, PDO::PARAM_STR);
 	$insertion->execute();
 	return $insertion->execute();
+}
+
+function updateParticipation($emailuser, $evenement, $idpart) {
+	global $bdd;
+	$update = $bdd->prepare("UPDATE participations SET emailuser = :emailuser, evenement = :evenement WHERE idpart = :idpart");
+	$update->bindValue(':emailuser', $emailuser, PDO::PARAM_STR);
+	$update->bindValue(':evenement', $evenement, PDO::PARAM_STR);
+	$update->bindValue(':idpart', $idpart, PDO::PARAM_INT);
+	return $update->execute();
 }
 
 function checkEmail($emailuser) {

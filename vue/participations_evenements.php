@@ -37,51 +37,26 @@
                                     </tr>
                                 </thead>
                             	<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM participations ORDER BY idpart DESC");
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="4">Aucune participation trouvée dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['idpart'] ?></td>
-												<?= $forms->edit('email', 'emailuser', $donnees['emailuser']) ?>
-												<?= $forms->edit('text', 'evenement', $donnees['evenement']) ?>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$idpart = $_GET['edit'];
-											$emailuser = $_POST['emailuser'];
-											$evenement = $_POST['evenement'];
-											$update = $bdd->prepare("
-												UPDATE participations 
-												SET emailuser = :emailuser, evenement = :evenement 
-												WHERE idpart = '".$idpart."' 
-												");
-											$update->bindValue(':emailuser', $emailuser, PDO::PARAM_STR);
-											$update->bindValue(':evenement', $evenement, PDO::PARAM_STR);
-											$update->execute();
-											header('Location: participations_evenements');
-										}
-										?>
-									<?php } ?>
-									<?php } else {
-										while ($donnees = $view->fetch()) {
-									?>
+                                    <?php foreach ($participations as $participation) { ?>
+                                    <?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['idpart'] ?></td>
-										<td><?= $donnees['emailuser'] ?></td>
-										<td><?= $donnees['evenement'] ?></td>
+										<form method="post" action="">
+											<td><?= $participation['idpart']; ?></td>
+											<?= $forms->edit('email', 'emailuser', $participation['emailuser']); ?>
+											<?= $forms->edit('text', 'evenement', $participation['evenement']); ?>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $participation['idpart']; ?></td>
+										<td><?= $participation['emailuser']; ?></td>
+										<td><?= $participation['evenement']; ?></td>
 										<td class="table-action">
-											<a class="btn btn-primary font-weight-bolder mr-25" href="participations_evenements&edit=<?= $donnees['idpart'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="participations_evenements&edit=<?= $participation['idpart']; ?>">
                                             	<i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="participations_evenements&idpart=<?= $donnees['idpart'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cette participation ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="participations_evenements&idpart=<?= $participation['idpart']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cette participation ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

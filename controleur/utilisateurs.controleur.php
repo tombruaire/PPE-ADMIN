@@ -2,6 +2,8 @@
 
 require "modele/utilisateurs.modele.php";
 
+$users = getAllUsers();
+
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -14,9 +16,23 @@ if (isset($_POST['submit'])) {
 		$NOM_MAJUSCULE->execute(array($nom));
 		$Prenom_MAJUSCULE = $bdd->prepare("UPDATE utilisateurs SET prenom = CONCAT(UCASE(LEFT(prenom,1)), LCASE(SUBSTRING(prenom,2)))");
 		$Prenom_MAJUSCULE->execute(array($prenom));
-		Alerts::setFlash("Insertion réussi !", "Utilisateur ajouté avec succès !");
+		header('Location: utilisateurs');
 	} else {
 		Alerts::setFlash("Echec de l'insertion", "Tous les champs doivent être compléter !", "warning");
+	}
+}
+
+if (isset($_POST['modifier'])) {
+	$id = $_GET['edit'];
+	$nom = $_POST['nom'];
+	$prenom = $_POST['prenom'];
+	$pseudo = $_POST['pseudo'];
+	$email = $_POST['email'];
+	if ($nom != "" && $prenom != "" && $pseudo != "" && $email != "") {
+		$update = updateUser($nom, $prenom, $pseudo, $email, $id);
+		header('Location: utilisateurs');
+	} else {
+		Alerts::setFlash("Echec de la modification", "Les champs ne doivent pas être vide !", "warning");
 	}
 }
 

@@ -2,6 +2,8 @@
 
 require "modele/inscriptions_conservatoires.modele.php";
 
+$inscriptions = getAllInscriptions();
+
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -20,7 +22,7 @@ if (isset($_POST['submit'])) {
 						$tellength = strlen($tel);
 						if ($tellength <= 10) {
 							$insertion = insertInscription($nom, $prenom, $email, $tel, $adresse, $conservatoire);
-							Alerts::setFlash("Insertion réussi !", "Élève ajouté avec succès !");
+							header('Location: inscriptions_conservatoires');
 						} else {
 							Alerts::setFlash("Echec de l'insertion", "Le numéro de téléphone ne doit pas dépasser 10 caractères !", "danger");
 						}

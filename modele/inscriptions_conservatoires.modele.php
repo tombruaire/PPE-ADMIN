@@ -1,5 +1,12 @@
 <?php
 
+function getAllInscriptions() {
+	global $bdd;
+	$inscriptions = $bdd->query("SELECT * FROM inscrits_conservatoires ORDER BY id_ins DESC");
+	$inscriptions->execute();
+	return $inscriptions->fetchAll();
+}
+
 function insertInscription($nom, $prenom, $email, $tel, $adresse, $conservatoire) {
 	global $bdd;
 	$insertion = $bdd->prepare("INSERT INTO inscrits_conservatoires (nom, prenom, email, tel, adresse, conservatoire, date_heure_inscription) VALUES (:nom, :prenom, :email, :tel, :adresse, :conservatoire, NOW())");

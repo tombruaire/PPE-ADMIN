@@ -42,93 +42,68 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-									<?php
-									$view = $bdd->query('SELECT id, nom, prenom, pseudo, email, date_format(date_inscription, "%d/%m/%Y"), heure_inscription, confirme, lvl FROM utilisateurs ORDER BY id DESC');
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="9">Aucun utilisateur trouvé dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['id'] ?></td>
-												<?= $forms->edit('text', 'nom', $donnees['nom']) ?>
-												<?= $forms->edit('text', 'prenom', $donnees['prenom']) ?>
-												<?= $forms->edit('text', 'pseudo', $donnees['pseudo']) ?>
-												<?= $forms->edit('email', 'email', $donnees['email']) ?>
-												<td><?= $donnees['date_format(date_inscription, "%d/%m/%Y")'] ?></td>
-												<td>
-													<?php if ($donnees['confirme'] == 0) { ?>
-													<span class="badge bg-warning text-light fw-bold fs-5">En attente...</span>
-													<?php } else { ?>
-													<span class="badge fs-5" style="background-color: #008000;">Confirmé</span>
-													<?php } ?>
-												</td>
-												<td class="table-action">
-													<?php if ($donnees['lvl'] == 0) { ?>
-													<a class="btn btn-primary active fw-bold disabled">
-														Débannir
-													</a>
-													<?php } else { ?>
-													<a class="btn btn-warning active fw-bold disabled">
-														Bannir
-													</a>
-													<?php } ?>
-												</td>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$id = $_GET['edit'];
-											$nom = $_POST['nom'];
-											$prenom = $_POST['prenom'];
-											$pseudo = $_POST['pseudo'];
-											$email = $_POST['email'];
-											$update = $bdd->prepare("UPDATE utilisateurs SET nom = :nom, prenom = :prenom, pseudo = :pseudo, email = :email WHERE id = '".$id."'");
-											$update->bindValue(':nom', $nom, PDO::PARAM_STR);
-											$update->bindValue(':prenom', $prenom, PDO::PARAM_STR);
-											$update->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
-											$update->bindValue(':email', $email, PDO::PARAM_STR);
-											$update->execute();
-											header('Location: utilisateurs');
-										}
-										?>
-									<?php } ?>
-									<?php } else { 
-										while ($donnees = $view->fetch()) { 
-									?>
+                                	<?php foreach ($users as $user) { ?>
+									<?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['id'] ?></td>
-										<td><?= $donnees['nom'] ?></td>
-										<td><?= $donnees['prenom'] ?></td>
-										<td><?= $donnees['pseudo'] ?></td>
-										<td><?= $donnees['email'] ?></td>
-										<td><?= $donnees['date_format(date_inscription, "%d/%m/%Y")'] ?></td>
+										<form method="post" action="">
+											<td><?= $user['id']; ?></td>
+											<?= $forms->edit('text', 'nom', $user['nom']); ?>
+											<?= $forms->edit('text', 'prenom', $user['prenom']); ?>
+											<?= $forms->edit('text', 'pseudo', $user['pseudo']); ?>
+											<?= $forms->edit('email', 'email', $user['email']); ?>
+											<td><?= $user['date_format(date_inscription, "%d/%m/%Y")']; ?></td>
+											<td>
+												<?php if ($user['confirme'] == 0) { ?>
+												<span class="badge bg-warning text-light fw-bold fs-5">En attente...</span>
+												<?php } else { ?>
+												<span class="badge fs-5" style="background-color: #008000;">Confirmé</span>
+												<?php } ?>
+											</td>
+											<td class="table-action">
+												<?php if ($user['lvl'] == 0) { ?>
+												<a class="btn btn-primary active fw-bold disabled">
+													Débannir
+												</a>
+												<?php } else { ?>
+												<a class="btn btn-warning active fw-bold disabled">
+													Bannir
+												</a>
+												<?php } ?>
+											</td>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $user['id']; ?></td>
+										<td><?= $user['nom']; ?></td>
+										<td><?= $user['prenom']; ?></td>
+										<td><?= $user['pseudo']; ?></td>
+										<td><?= $user['email']; ?></td>
+										<td><?= $user['date_format(date_inscription, "%d/%m/%Y")']; ?></td>
 										<td>
-											<?php if ($donnees['confirme'] == 0) { ?>
+											<?php if ($user['confirme'] == 0) { ?>
 											<span class="badge badge-pill badge-light-info mr-1">En attente</span>
 											<?php } else { ?>
 											<span class="badge badge-pill badge-light-success mr-1">Confirmé</span>
 											<?php } ?>
 										</td>
 										<td class="table-action">
-											<?php if ($donnees['lvl'] == 0) { ?>
-											<a class="btn btn-primary active fw-bold" href="utilisateurs&deban=<?= $donnees['id'] ?>" onclick="return(confirm('Voulez-vous vraiment bannir cet utilisateur ?'));">
+											<?php if ($user['lvl'] == 0) { ?>
+											<a class="btn btn-primary active fw-bold" href="utilisateurs&deban=<?= $user['id'] ?>" onclick="return(confirm('Voulez-vous vraiment bannir cet utilisateur ?'));">
 												Débannir
 											</a>
 											<?php } else { ?>
-											<a class="btn btn-warning active fw-bold" href="utilisateurs&ban=<?= $donnees['id'] ?>" onclick="return(confirm('Voulez-vous vraiment débannir cet utilisateur ?'));">
+											<a class="btn btn-warning active fw-bold" href="utilisateurs&ban=<?= $user['id'] ?>" onclick="return(confirm('Voulez-vous vraiment débannir cet utilisateur ?'));">
 												Bannir
 											</a>
 											<?php } ?>
 										</td>
 										<td>
-											<a class="btn btn-primary font-weight-bolder mr-25" href="utilisateurs&edit=<?= $donnees['id'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="utilisateurs&edit=<?= $user['id']; ?>">
                                                 <i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="utilisateurs&delete=<?= $donnees['id'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet utilisateur ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="utilisateurs&delete=<?= $user['id']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet utilisateur ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

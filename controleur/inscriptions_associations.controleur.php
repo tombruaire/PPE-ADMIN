@@ -2,6 +2,8 @@
 
 require "modele/inscriptions_associations.modele.php";
 
+$inscriptions = getAllInscriptions();
+
 if (isset($_POST['submit'])) {
 	$nom = $_POST['nom'];
 	$prenom = $_POST['prenom'];
@@ -12,7 +14,7 @@ if (isset($_POST['submit'])) {
 			$requete_email_exist = checkEmail($email);
 			if (!$requete_email_exist) {
 					$insertion = insertInscription($nom, $prenom, $email, $association);
-					Alerts::setFlash("Insertion réussi !", "Inscription ajoutée avec succès !");
+					header('Location: inscriptions_associations');
 			} else {
 				Alerts::setFlash("Echec de l'insertion", "Cette adresse email est déjà utilisé !", "danger");
 			}

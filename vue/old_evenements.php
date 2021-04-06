@@ -35,23 +35,20 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM old_events ORDER BY idold DESC");
-									while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($oldsevents as $oldevent) { ?>
 									<tr>
-										<td><?= $donnees['idold'] ?></td>
-										<td><?= $donnees['idevent'] ?></td>
-										<td><?= $donnees['nomevent'] ?></td>
-										<td><?= $donnees['dateevent'] ?></td>
-										<td><?= $donnees['lieuevent'] ?></td>
-										<td><?= $donnees['nbievent'] ?></td>
-										<td><?= $donnees['prixplaceevent'] ?></td>
-										<td><?= $donnees['placestotal'] ?></td>
-										<td><?= $donnees['date_histo'] ?></td>
-										<td><?= $donnees['event_histo'] ?></td>
+										<td><?= $oldevent['idold']; ?></td>
+										<td><?= $oldevent['idevent']; ?></td>
+										<td><?= $oldevent['nomevent']; ?></td>
+										<td><?= $oldevent['dateevent']; ?></td>
+										<td><?= $oldevent['lieuevent']; ?></td>
+										<td><?= $oldevent['nbievent']; ?></td>
+										<td><?= $oldevent['prixplaceevent']; ?></td>
+										<td><?= $oldevent['placestotal']; ?></td>
+										<td><?= $oldevent['date_histo']; ?></td>
+										<td><?= $oldevent['event_histo']; ?></td>
 										<td>
-											<a class="btn btn-danger font-weight-bolder" href="old_evenements&idold=<?= $donnees['idold'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet historique ?'));">
+											<a class="btn btn-danger font-weight-bolder" href="old_evenements&idold=<?= $oldevent['idold']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet historique ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

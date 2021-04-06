@@ -38,51 +38,28 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM ecoles ORDER BY idec DESC");
-									if ($view->rowCount() == 0) { ?>
-										<tr>
-											<td colspan="5">Aucune école trouvée dans la basse de données</td>
-										</tr>
-									<?php } elseif (isset($_GET['edit'])) { 
-									while ($donnees = $view->fetch()) { ?>
-										<tr>
-											<form method="post" action="">
-												<td><?= $donnees['idec'] ?></td>
-												<?= $forms->edit('text', 'nomec', $donnees['nomec']) ?>
-												<?= $forms->edit('text', 'adresseec', $donnees['adresseec']) ?>
-												<?= $forms->edit('number', 'eleves', $donnees['eleves']) ?>
-												<?= $forms->buttons() ?>
-											</form>
-										</tr>
-										<?php
-										if (isset($_POST['modifier'])) {
-											$idec = $_GET['edit'];
-											$nomec = $_POST['nomec'];
-											$adresseec = $_POST['adresseec'];
-											$eleves = $_POST['eleves'];
-											$update = $bdd->prepare("UPDATE ecoles SET nomec = :nomec, adresseec = :adresseec, eleves = :eleves WHERE idec = '".$idec."'");
-											$update->bindValue(':nomec', $nomec, PDO::PARAM_STR);
-											$update->bindValue(':adresseec', $adresseec, PDO::PARAM_STR);
-											$update->bindValue(':eleves', $eleves, PDO::PARAM_INT);
-											$update->execute();
-											header('Location: ecoles');
-										}
-										?>
-									<?php } ?>
-									<?php } else {
-										while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($ecoles as $ecole) { ?>
+									<?php if (isset($_GET['edit'])) { ?>
 									<tr>
-										<td><?= $donnees['idec'] ?></td>
-										<td><?= $donnees['nomec'] ?></td>
-										<td><?= $donnees['adresseec'] ?></td>
-										<td><?= $donnees['eleves'] ?></td>
+										<form method="post" action="">
+											<td><?= $ecole['idec']; ?></td>
+											<?= $forms->edit('text', 'nomec', $ecole['nomec']); ?>
+											<?= $forms->edit('text', 'adresseec', $ecole['adresseec']); ?>
+											<?= $forms->edit('number', 'eleves', $ecole['eleves']); ?>
+											<?= $forms->buttons(); ?>
+										</form>
+									</tr>
+									<?php } else { ?>
+									<tr>
+										<td><?= $ecole['idec']; ?></td>
+										<td><?= $ecole['nomec']; ?></td>
+										<td><?= $ecole['adresseec']; ?></td>
+										<td><?= $ecole['eleves']; ?></td>
 										<td>
-											<a class="btn btn-primary font-weight-bolder mr-25" href="ecoles&edit=<?= $donnees['idec'] ?>">
+											<a class="btn btn-primary font-weight-bolder mr-25" href="ecoles&edit=<?= $ecole['idec']; ?>">
                                                 <i data-feather="edit-2"></i>
                                             </a>
-                                            <a class="btn btn-danger font-weight-bolder" href="ecoles&idec=<?= $donnees['idec'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cette école ?'));">
+                                            <a class="btn btn-danger font-weight-bolder" href="ecoles&idec=<?= $ecole['idec']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cette école ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

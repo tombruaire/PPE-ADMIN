@@ -1,5 +1,12 @@
 <?php
 
+function getAllConservatoires() {
+	global $bdd;
+	$conservatoires = $bdd->query("SELECT * FROM conservatoires ORDER BY idconserv DESC");
+	$conservatoires->execute();
+	return $conservatoires->fetchAll();
+}
+
 function insertConservatoire($nomconserv, $adresseconserv, $telephone, $effectifs, $datecreationconserv) {
 	global $bdd;
 	$insertion = $bdd->prepare("
@@ -11,6 +18,18 @@ function insertConservatoire($nomconserv, $adresseconserv, $telephone, $effectif
 	$insertion->bindValue(':effectifs', $effectifs, PDO::PARAM_INT);
 	$insertion->bindValue(':datecreationconserv', $datecreationconserv, PDO::PARAM_STR);
 	return $insertion->execute();
+}
+
+function updateConservatoire($nomconserv, $adresseconserv, $telephone, $effectifs, $datecreationconserv, $idconserv){
+	global $bdd;
+	$update = $bdd->prepare("UPDATE conservatoires SET nomconserv = :nomconserv, adresseconserv = :adresseconserv, telephone = :telephone, effectifs = :effectifs, datecreationconserv = :datecreationconserv WHERE idconserv = :idconserv ");
+	$update->bindValue(':nomconserv', $nomconserv, PDO::PARAM_STR);
+	$update->bindValue(':adresseconserv', $adresseconserv, PDO::PARAM_STR);
+	$update->bindValue(':telephone', $telephone, PDO::PARAM_STR);
+	$update->bindValue(':effectifs', $effectifs, PDO::PARAM_INT);
+	$update->bindValue(':datecreationconserv', $datecreationconserv, PDO::PARAM_STR);
+	$update->bindValue(':idconserv', $idconserv, PDO::PARAM_INT);
+	return $update->execute();
 }
 
 function checkTelephone($telephone) {

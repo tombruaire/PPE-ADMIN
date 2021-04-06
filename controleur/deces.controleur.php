@@ -2,6 +2,8 @@
 
 require "modele/deces.modele.php";
 
+$deces = getAllDeces();
+
 if (isset($_POST['submit'])) {
 	$dated = $_POST['dated'];
 	$motifd = $_POST['motifd'];
@@ -9,7 +11,7 @@ if (isset($_POST['submit'])) {
 	if ($dated != "" && $motifd != "") {
 		if ($dated <= date("Y-m-d")) {
 			$insertion = insertDeces($dated, $motifd, $prenomhab);
-			Alerts::setFlash("Insertion réussi !", "Décés ajouté avec succès !");
+			header('Location: deces');
 		} else {
 			Alerts::setFlash("Echec de l'insertion", "La date du décès ne peut pas être supérieur à la date du jour !", "danger");
 		}

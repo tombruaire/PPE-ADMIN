@@ -39,18 +39,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM viewMariage ORDER BY idhab1 DESC");
-									while ($donnees = $view->fetch()) {
-									?>
+									<?php foreach ($mariages as $mariage) { ?>
 									<tr>
-										<td><?= $donnees['prenomhab1'] ?></td>
-										<td><?= $donnees['prenomhab2'] ?></td>
-										<td><?= $donnees['datem'] ?></td>
-										<td><?= $donnees['heurem'] ?></td>
-										<td><?= $donnees['datediv'] ?></td>
+										<td><?= $mariage['prenomhab1']; ?></td>
+										<td><?= $mariage['prenomhab2']; ?></td>
+										<td><?= $mariage['datem']; ?></td>
+										<td><?= $mariage['heurem']; ?></td>
+										<td><?= $mariage['datediv']; ?></td>
 										<td>
-											<a class="btn btn-danger font-weight-bolder" href="mariages&idhab1=<?= $donnees['idhab1'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer ce mariage ?'));">
+											<a class="btn btn-danger font-weight-bolder" href="mariages&idhab1=<?= $mariage['idhab1']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer ce mariage ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

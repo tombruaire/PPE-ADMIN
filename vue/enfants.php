@@ -41,20 +41,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$view = $bdd->query("SELECT * FROM enfants ORDER BY idenf DESC");
-									while ($donnees = $view->fetch()) {
-									?>
+                                    <?php foreach ($enfants as $enfant) { ?>
 									<tr>
-										<td><?= $donnees['idenf'] ?></td>
-										<td><?= $donnees['nomenf'] ?></td>
-										<td><?= $donnees['prenomenf'] ?></td>
-										<td><?= $donnees['datenaissenf'] ?></td>
-										<td><?= $donnees['sexenf'] ?></td>
-										<td><?= $donnees['classedage'] ?></td>
-										<td><?= $donnees['tuteur'] ?></td>
+										<td><?= $enfant['idenf']; ?></td>
+										<td><?= $enfant['nomenf']; ?></td>
+										<td><?= $enfant['prenomenf']; ?></td>
+										<td><?= $enfant['datenaissenf']; ?></td>
+										<td><?= $enfant['sexenf']; ?></td>
+										<td><?= $enfant['classedage']; ?></td>
+										<td><?= $enfant['tuteur']; ?></td>
 										<td>
-											<a class="btn btn-danger font-weight-bolder" href="enfants&idenf=<?= $donnees['idenf'] ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet enfant ?'));">
+											<a class="btn btn-danger font-weight-bolder" href="enfants&idenf=<?= $enfant['idenf']; ?>" onclick="return(confirm('Voulez-vous vraiment supprimer cet enfant ?'));">
                                                 <i data-feather="x"></i>
                                             </a>
 										</td>

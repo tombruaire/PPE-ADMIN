@@ -6,4 +6,11 @@ function deleteAllCompteurs() {
 	return $delete_all->execute();
 }
 
+function getAllCompteurs() {
+	global$bdd;
+	$compteurs = $bdd->query("SELECT * FROM compteur ORDER BY idcompteur DESC");
+	$compteurs->execute();
+	return $compteurs->fetchAll();
+}
+
 ?>
